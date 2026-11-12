@@ -1,0 +1,3552 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>莫桑耳饰 2026批次 · 产品表现与目标达成看板</title>
+<script src="vendor/echarts.min.js"></script>
+<style>
+  :root{
+    --bg:#f4f6fb; --card:#ffffff; --ink:#1e293b; --sub:#64748b; --line:#e5e9f2;
+    --blue:#3b82f6; --orange:#f97316; --teal:#14b8a6; --gray:#94a3b8;
+    --green:#16a34a; --amber:#f59e0b; --red:#ef4444; --purple:#8b5cf6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;background:var(--bg);color:var(--ink);font-size:14px;}
+  .wrap{max-width:1280px;margin:0 auto;padding:24px 20px 60px;}
+  header.top{background:linear-gradient(120deg,#1e3a8a,#2563eb 55%,#0ea5e9);color:#fff;border-radius:16px;padding:26px 30px;margin-bottom:18px;box-shadow:0 8px 24px rgba(37,99,235,.18);}
+  header.top h1{font-size:22px;font-weight:700;letter-spacing:.5px;}
+  header.top .meta{margin-top:8px;font-size:12.5px;opacity:.85;line-height:1.7;}
+  .tabs{display:flex;gap:10px;margin-bottom:18px;}
+  .tab-btn{flex:1;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;font-weight:600;color:var(--sub);transition:.2s;text-align:left;}
+  .tab-btn .t-desc{display:block;font-size:12px;font-weight:400;margin-top:4px;color:var(--gray);}
+  .tab-btn.active{color:#fff;background:linear-gradient(120deg,#2563eb,#3b82f6);border-color:transparent;box-shadow:0 6px 16px rgba(37,99,235,.25);}
+  .tab-btn.active .t-desc{color:rgba(255,255,255,.8);}
+  .page{display:none;} .page.active{display:block;}
+  .kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:16px;}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;}
+  .kpi .k-label{font-size:12px;color:var(--sub);}
+  .kpi .k-val{font-size:24px;font-weight:700;margin-top:4px;font-variant-numeric:tabular-nums;}
+  .kpi .k-sub{font-size:11.5px;color:var(--gray);margin-top:3px;}
+  .k-val.amz{color:var(--orange);} .k-val.b2b{color:var(--teal);} .k-val.good{color:var(--green);} .k-val.bad{color:var(--red);} .k-val.warn{color:var(--amber);}
+  .grid{display:grid;gap:14px;margin-bottom:14px;}
+  .g2{grid-template-columns:1fr 1fr;} .g3{grid-template-columns:repeat(3,1fr);} .g23{grid-template-columns:2fr 1fr;} .g32{grid-template-columns:1fr 2fr;}
+  @media(max-width:900px){.g2,.g3,.g23,.g32{grid-template-columns:1fr;}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;}
+  .card h3{font-size:14.5px;font-weight:600;margin-bottom:4px;}
+  .card .hint{font-size:11.5px;color:var(--gray);margin-bottom:8px;}
+  .chart{width:100%;height:320px;}
+  .chart.tall{height:380px;} .chart.short{height:260px;}
+  table{width:100%;border-collapse:collapse;font-size:12.5px;}
+  th{background:#f1f5f9;color:var(--sub);font-weight:600;padding:8px 10px;text-align:left;position:sticky;top:0;}
+  td{padding:7px 10px;border-top:1px solid var(--line);font-variant-numeric:tabular-nums;}
+  tr:hover td{background:#f8fafc;}
+  .num{text-align:right;}
+  .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:600;}
+  .pill.g{background:#dcfce7;color:var(--green);} .pill.a{background:#fef3c7;color:#b45309;} .pill.r{background:#fee2e2;color:var(--red);} .pill.n{background:#e2e8f0;color:var(--sub);}
+  .scrollbox{max-height:380px;overflow:auto;}
+  .diag{border-radius:12px;padding:16px 18px;margin-bottom:14px;border-left:4px solid;}
+  .diag h3{font-size:15px;margin-bottom:10px;}
+  .diag.red{background:#fff5f5;border-color:var(--red);} .diag.amber{background:#fffbeb;border-color:var(--amber);} .diag.green{background:#f0fdf4;border-color:var(--green);} .diag.blue{background:#eff6ff;border-color:var(--blue);}
+  .diag ul{list-style:none;}
+  .diag li{padding:6px 0 6px 22px;position:relative;line-height:1.65;font-size:13px;}
+  .diag li::before{content:"●";position:absolute;left:4px;font-size:9px;top:10px;}
+  .diag.red li::before{color:var(--red);} .diag.amber li::before{color:var(--amber);} .diag.green li::before{color:var(--green);} .diag.blue li::before{color:var(--blue);}
+  .diag b{font-weight:700;}
+  .bar-note{font-size:11.5px;color:var(--gray);margin-top:10px;line-height:1.7;}
+  footer{margin-top:26px;font-size:12px;color:var(--gray);line-height:1.8;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;}
+  .seg{display:flex;gap:6px;margin-bottom:10px;}
+  .seg button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:4px 12px;font-size:12px;cursor:pointer;color:var(--sub);}
+  .seg button.on{background:#2563eb;color:#fff;border-color:transparent;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>莫桑耳饰 · 2026批次 产品表现与目标达成看板</h1>
+    <div class="meta">
+      数据截至 2026-11-11 ｜ 数据源：①《莫桑耳饰-2026批次-产品表现概览》SKU级销量明细（88 SKU / 13品线 / 13 Listing / 3批次）
+      ②《亚马逊的目标数据》项目规划（AH列·目标新品期销量，与销量数据同期口径）<br>
+      交互提示：点击上方卡片切换三个分析页签；图表可悬停查看明细、图例可点选过滤。
+    </div>
+  </header>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab(0,this)">① 公司级销量汇总<span class="t-desc">13条品线 · 结构 · 批次 · 材质 · 站点 · SKU效率</span></button>
+    <button class="tab-btn" onclick="showTab(1,this)">② 亚马逊渠道分析<span class="t-desc">细化到站点 · 新品期目标完成率（总览+分站点）</span></button>
+    <button class="tab-btn" onclick="showTab(2,this)">③ B端渠道分析<span class="t-desc">与亚马逊同维度 · 渠道错配诊断</span></button>
+  </div>
+
+  <!-- ================= TAB 1 公司级 ================= -->
+  <section class="page active" id="page0">
+    <div class="kpi-row" id="kpi1"></div>
+
+    <div class="grid g23">
+      <div class="card">
+        <h3>13条品线销量结构（亚马逊 / B端 / 其他平台）</h3>
+        <div class="hint">按公司级总销量降序，堆叠展示三渠道构成</div>
+        <div class="chart tall" id="a_lines"></div>
+      </div>
+      <div class="card">
+        <h3>公司级销量渠道构成</h3>
+        <div class="hint">总销量 4,213 件</div>
+        <div class="chart" id="a_chan"></div>
+        <div class="bar-note">B端占比 43.7%，与亚马逊仅差约10个百分点；其他平台（乐天/Coupang等）131件（3.1%），仍处试水阶段。</div>
+      </div>
+    </div>
+
+    <div class="grid g3">
+      <div class="card"><h3>按上线批次</h3><div class="hint">P1(8月)/P2(9月)/P3(10月)</div><div class="chart" id="a_batch"></div></div>
+      <div class="card"><h3>按产品结构</h3><div class="hint">耳圈 / 耳坠 / 耳钉</div><div class="chart" id="a_cat"></div></div>
+      <div class="card"><h3>按材质颜色</h3><div class="hint">14K金(GD) / 白金(SL)</div><div class="chart" id="a_mat"></div></div>
+    </div>
+
+    <div class="grid g2">
+      <div class="card">
+        <h3>批次 × 渠道销量</h3>
+        <div class="hint">P3批次（耳钉）亚马逊动销为 0，销量几乎全部来自B端</div>
+        <div class="chart" id="a_batchChan"></div>
+      </div>
+      <div class="card">
+        <h3>亚马逊站点结构（按产品结构拆分）</h3>
+        <div class="hint">US 1,041 / JP 601 / UK 267 / CA 171 / DE 161</div>
+        <div class="chart" id="a_site"></div>
+      </div>
+    </div>
+
+    <div class="grid g2">
+      <div class="card">
+        <h3>SKU 销量帕累托（Top 20）</h3>
+        <div class="hint">Top10 SKU 贡献 46.9% 销量，Top20 贡献 65.1% —— 头部集中度较高</div>
+        <div class="chart tall" id="a_pareto"></div>
+      </div>
+      <div class="card">
+        <h3>品线单SKU效率（公司级销量 ÷ SKU数）</h3>
+        <div class="hint">衡量每条品线的产品组合效率；瓣簇拥耳钉单SKU产出最高</div>
+        <div class="chart tall" id="a_eff"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:14px">
+      <h3>品线明细总表</h3>
+      <div class="scrollbox"><table id="t_lines"></table></div>
+    </div>
+
+    <div class="diag red">
+      <h3>🔴 公司级关键问题诊断</h3>
+      <ul>
+        <li><b>产品结构「两头失衡」：</b>耳圈量最大（1,672件/39.7%）但以排钻系列单系列贡献695件；耳钉（P3）亚马逊<b>零动销</b>，1,192件几乎全部压在B端单一渠道，抗风险能力弱。</li>
+        <li><b>SKU 长尾效率低：</b>88个SKU中<b>12个零动销</b>（全部为P3耳钉异型系列），Top10 SKU 即占46.9%销量；L11公主方系列8款全零动销，属于纯占位库存。</li>
+        <li><b>批次表现断层：</b>P1（45.3%）与P2（26.4%）跑量正常，P3（10月上线）销量全靠B端支撑，亚马逊侧上新/推广链路疑似未落地。</li>
+        <li><b>站点依赖过重：</b>亚马逊销量中US占46.5%、JP占26.8%，CA（171）与DE（161）合计仅14.9%，次要站点基本未打开。</li>
+      </ul>
+    </div>
+    <div class="diag blue">
+      <h3>🧭 公司级优化方向</h3>
+      <ul>
+        <li><b>聚焦头部：</b>排钻、Leverback②、主石三大系列加库存深度与广告预算，做深Top10 SKU；零动销12个SKU限期（如4周）处理：优化Listing或清库退市。</li>
+        <li><b>P3耳钉双线并进：</b>B端已验证花瓣簇拥（1,168件）的需求，应立即补齐亚马逊Listing上新+Vine评论+优惠券冷启动，把B端验证款式反哺C端。</li>
+        <li><b>站点复制：</b>JP占比已近27%，可将US跑通的排钻/Leverback打法复制到JP与UK；CA/DE先做小预算测款再决定是否加投。</li>
+        <li><b>其他平台：</b>乐天/Coupang 131件初步验证日韩市场接受度，与JP站点联动做捆绑投放。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= TAB 2 亚马逊 ================= -->
+  <section class="page" id="page1">
+    <div class="kpi-row" id="kpi2"></div>
+    <div class="grid g23">
+      <div class="card">
+        <h3>品线完成率：目标新品期销量 vs 实际销量</h3>
+        <div class="hint">灰色条=目标（AH列），彩色条=实际；仅 Leverback② 超额</div>
+        <div class="chart tall" id="b_lines"></div>
+      </div>
+      <div class="card">
+        <h3>站点完成率（仅 P1 批次）</h3>
+        <div class="hint">仅含P1批次5条品线（排钻/渐变主石/耳坠渐变/主石/双钻）；站点目标 = 「目标月销销量/Listing」行数值直接加总（月销口径）</div>
+        <div class="chart" id="b_sites"></div>
+        <div class="bar-note">P1批次月销口径整体达成 63.4%（1,466/2,313件）：JP 100.8%、UK 118.1% 达标/超额，US 65.1%；DE 43.8%、CA 24.8% 为短板（CA缺口-395件）。UK目标基数105件（仅排钻60+耳坠渐变45）。</div>
+      </div>
+    </div>
+
+    <div class="grid g2">
+      <div class="card">
+        <h3>分站点：目标 vs 实际</h3>
+        <div class="hint">月销口径：CA缺口最大（-750件）且完成率最低（18.6%）；UK超额+162件</div>
+        <div class="chart" id="b_siteComp"></div>
+      </div>
+      <div class="card">
+        <h3>上线批次（Launch Cohort）达成情况</h3>
+        <div class="hint">P1 43.9% / P2 43.5% / P3 0% —— P3耳钉整体未在亚马逊开卖</div>
+        <div class="chart" id="b_cohort"></div>
+      </div>
+    </div>
+
+    <div class="grid g2">
+      <div class="card">
+        <h3>站点结构：目标占比 vs 实际占比</h3>
+        <div class="hint">实际US/JP占比高于目标，CA/DE显著低于目标</div>
+        <div class="chart" id="b_mix"></div>
+      </div>
+      <div class="card">
+        <h3>品线 × 站点销量热力图</h3>
+        <div class="hint">识别每条品线的主力站点与空白站点</div>
+        <div class="chart tall" id="b_heat"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:14px">
+      <h3>亚马逊目标达成明细（按目标表顺序）</h3>
+      <div class="scrollbox"><table id="t_amz"></table></div>
+    </div>
+
+    <div class="diag red">
+      <h3>🔴 亚马逊关键问题诊断</h3>
+      <ul>
+        <li><b>整体完成率仅 35.0%：</b>实际2,241件 vs 新品期目标6,399件，缺口4,158件；目标新品期销售额约¥231.4万，按当前销量结构达成水平严重偏低。</li>
+        <li><b>P3耳钉全线未开卖：</b>花瓣簇拥/公主方/异型簇拥三条品线亚马逊销量为0（目标合计1,274件），而上新计划为2025-10-01——属<b>执行缺失</b>而非市场问题（同期B端花瓣簇拥卖了1,168件）。</li>
+        <li><b>P2批次两极分化：</b>流苏①(4.4%)、流苏②(6.8%)、Leverback①(4.7%)近乎零动销，而姊妹系列<b>Leverback② 达成171.5%</b>。同价位段（50,59]、同批次反差巨大，需核查①与②的Listing质量/广告/评论/定价差异，也不排除两条品线数据相互错挂。</li>
+        <li><b>站点失衡：</b>月销口径下CA完成率仅18.6%（缺口-750件）为全站点最差；DE 44.0%亦低于US/JP（62.5%/63.0%）。目标结构中CA应占23.0%，实际仅占7.6%。</li>
+        <li><b>排钻系列(旗舰)仅达成36.4%：</b>作为目标体量最大的系列（1,701件），缺口-1,082件，直接拖累大盘约17个百分点。</li>
+      </ul>
+    </div>
+    <div class="diag blue">
+      <h3>🧭 亚马逊优化方向</h3>
+      <ul>
+        <li><b>紧急项—P3上新：</b>2周内完成花瓣簇拥等耳钉Listing上架（B端已验证需求），配Vine+秒杀+CP投放冷启动；否则新品期窗口（3个月）耗尽。</li>
+        <li><b>诊断P2低动销品线：</b>对比Leverback①与②的主图/价格/评论数/广告ACOS，先复制②的成功要素到①和流苏系列；若为数据错挂，立即修正统计口径。</li>
+        <li><b>站点资源再平衡：</b>CA/DE各追加测款预算与本地化Listing（DE需德语优化）；JP、UK延续当前打法加大库存；US主攻排钻旗舰回归。</li>
+        <li><b>目标滚动校准：</b>按Leverback②的171%表现上调该系列至成熟期目标；对连续4周＜10%达成的品线降级处理，避免目标资源错配。</li>
+        <li><b>机制建议：</b>建立周度「站点×品线」完成率跟踪（即本看板），对＜30%品线触发红黄灯复盘流程。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= TAB 3 B端 ================= -->
+  <section class="page" id="page2">
+    <div class="kpi-row" id="kpi3"></div>
+    <div class="grid g23">
+      <div class="card">
+        <h3>B端分品线销量</h3>
+        <div class="hint">花瓣簇拥耳钉单条品线占B端 63.4%，高度集中</div>
+        <div class="chart tall" id="c_lines"></div>
+      </div>
+      <div class="card">
+        <h3>B端销量构成</h3>
+        <div class="hint">按批次 / 结构 / 材质</div>
+        <div class="chart short" id="c_batch"></div>
+        <div class="chart short" id="c_cat"></div>
+      </div>
+    </div>
+
+    <div class="grid g2">
+      <div class="card">
+        <h3>渠道对照：B端 vs 亚马逊（分品线）</h3>
+        <div class="hint">左偏=B端依赖（耳钉类），右偏=亚马逊依赖（排钻/Leverback②）</div>
+        <div class="chart tall" id="c_chan"></div>
+      </div>
+      <div class="card">
+        <h3>B端材质结构 & B端Top SKU</h3>
+        <div class="hint">白金SL在B端占比58.5%（亚马逊仅48.8%）——B端客户更偏好白金款</div>
+        <div class="chart short" id="c_mat"></div>
+        <div class="scrollbox" style="margin-top:10px"><table id="t_btop"></table></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:14px">
+      <h3>B端品线明细（与亚马逊同维度对照）</h3>
+      <div class="scrollbox"><table id="t_b"></table></div>
+    </div>
+
+    <div class="diag amber">
+      <h3>🟠 B端关键问题诊断</h3>
+      <ul>
+        <li><b>单点依赖风险：</b>花瓣簇拥系列（KRKC-0336）贡献1,168件/63.4%，其中SL-7.5mm单SKU就有406件——B端业绩高度绑定单一产品，一旦断货或客户流失冲击巨大。</li>
+        <li><b>渠道错配：</b>耳钉类在亚马逊0动销、B端1,191件；而耳圈/耳坠在亚马逊强、B端弱——两渠道客群与选品逻辑明显不同，但当前品线布局未按渠道分层。</li>
+        <li><b>材质偏好差异：</b>B端白金SL占58.5%，高于亚马逊的48.8%；B端客户（批发/婚庆/礼品类）对白金款敏感度更高，备货结构应区分。</li>
+        <li><b>P2/P3部分品线两渠道双弱：</b>流苏①②、异型簇拥、异型单钻B端合计仅42件，属于「渠道都不跑」的品线，需评估产品力本身（款式/克拉段/定价）。</li>
+      </ul>
+    </div>
+    <div class="diag green">
+      <h3>🟢 B端优化方向</h3>
+      <ul>
+        <li><b>保供头部SKU：</b>KRKC-0336系列（6/7.5/9mm三档）设安全库存与快速补货机制，锁定B端大客户的复购节奏。</li>
+        <li><b>按渠道分层选品：</b>B端验证款（花瓣簇拥、Leverback②）优先上架亚马逊；亚马逊验证款（排钻）反向推B端报价单，形成「C端测款—B端放量」闭环。</li>
+        <li><b>差异化备货：</b>B端订单白金比例上调至6成左右；为B端开发专属组合装/多克拉段套装提升客单。</li>
+        <li><b>激活双弱品线：</b>对异型簇拥/单钻、流苏系列做B端客户调研，明确是款式问题还是缺推介，4周内决定「改造/促销/退市」。</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <b>口径与方法说明</b><br>
+    ① 完成率 = 表1「AMZ汇总销量」（同期实际）÷ 表2 AH列「目标新品期销量」（合计6,399件），两表为同一统计期间，可直接对比。<br>
+    ② 站点级目标口径（经确认）：直接取目标表「目标月销销量/Listing」行各站点数值加总（S列=US12、T=CA12、U=DE12、V=JP12、W=UK12），全量合计4,011件/月。该口径未含AH列内置的0.6爬坡系数（AH=月销×新品期月数×0.6），因此站点完成率（约55.9%）高于AH口径总体完成率35.0%，两口径并列参考；总体完成率仍以AH列6,399件为准。UK仅在排钻（60）、耳坠-渐变（45）两条品线设有月销目标，基数偏低。<br>
+    ③ 品线匹配：表1「三级品线」与表2「系列」一一对应（12条有目标）；表1中「耳钉-异型-单钻系列」在目标表中无对应目标，完成率标记为「无目标」。<br>
+    ④ B端数据表1未提供站点与目标拆分，故按品线/批次/结构/材质/SKU维度分析；「其他平台」= 乐天/Coupang等（131件，公司级占比3.1%）。
+  </footer>
+</div>
+
+<script>
+const D = {
+ "skus": [
+  {
+   "sku": "KRKC-0340-MO-ER-GD-11mm",
+   "name": "1.2克拉莫桑石单排耳圈(内径11mm) 14K金 铜台银针(3mm/0.1ct莫桑石X12颗) 配2张0.1克拉GRA证书",
+   "line": "耳圈-排钻系列",
+   "batch": "P1",
+   "list": "L1",
+   "mat": "14K金(GD)",
+   "cat": "耳圈",
+   "amz": 75,
+   "b": 15,
+   "ot": 3,
+   "total": 93,
+   "us": 31,
+   "ca": 5,
+   "de": 6,
+   "jp": 17,
+   "uk": 16
+  },
+  {
+   "sku": "KRKC-0340-MO-ER-GD-13mm",
+   "name": "3.0克拉莫桑石单排耳圈(内径13mm) 14K金 铜台银针(3.75mm/0.25ct莫桑石X12颗) 配2张0.25克拉GRA证书",
+   "line": "耳圈-排钻系列",
+   "batch": "P1",
+   "list": "L1",
+   "mat": "14K金(GD)",
+   "cat": "耳圈",
+   "amz": 77,
+   "b": 5,
+   "ot": 3,
+   "total": 85,
+   "us": 26,
+   "ca": 8,
+   "de": 11,
+   "jp": 22,
+   "uk": 10
+  },
+  {
+   "sku": "KRKC-0340-MO-ER-GD-14mm",
+   "name": "3.6克拉莫桑石单排耳圈(内径14mm) 14K金 铜台银针(4mm/0.3ct莫桑石X12颗) 配2张0.3克拉GRA证书",
+   "line": "耳圈-排钻系列",
+   "batch": "P1",
+   "list": "L1",
+   "mat": "14K金(GD)",
+   "cat": "耳圈",
+   "amz": 41,
+   "b": 0,
+   "ot": 2,
+   "total": 43,
+   "us": 14,
+   "ca": 3,
+   "de": 10,
+   "jp": 4,
+   "uk": 10
+  },
+  {
+   "sku": "KRKC-0340-MO-ER-GD-15mm",
+   "name": "4.8克拉莫桑石单排耳圈(内径15mm) 14K金 铜台银针(4.5mm/0.4ct莫桑石X12颗) 配2张0.4克拉GRA证书",
+   "line": "耳圈-排钻系列",
+   "batch": "P1",
+   "list": "L1",
+   "mat": "14K金(GD)",
+   "cat": "耳圈",
+   "amz": 68,
+   "b": 0,
+   "ot": 2,
+   "total": 70,
+   "us": 24,
+   "ca": 6,
+   "de": 13,
+   "jp": 12,
+   "uk": 13
+  },
+  {
+   "sku": "KRKC-0340-MO-ER-SL-11mm",
+   "name": "1.2克拉莫桑石单排耳圈(内径11mm) 白金 铜台银针(3mm/0.1ct莫桑石X12颗) 配2张0.1克拉GRA证书",
+   "line": "耳圈-排钻系列",
+   "batch": "P1",
+   "list": "L1",
+   "mat": "白金(SL)",
+   "cat": "耳圈",
+   "amz": 109,
+   "b": 24,
+   "ot": 5,
+   "total": 138,
+   "us": 57,
+   "ca": 10,
+   "de": 6,
+   "jp": 27,
+   "uk": 9
+  },
+  {
+   "sku": "KRKC-0340-MO-ER-SL-13mm",
+   "name": "3.0克拉莫桑石单排耳圈(内径13mm) 白金 铜台银针(3.75mm/0.25ct莫桑石X12颗) 配2张0.25克拉GRA证书",
+   "line": "耳圈-排钻系列",
+   "batch": "P1",
+   "list": "L1",
+   "mat": "白金(SL)",
+   "cat": "耳圈",
+   "amz": 101,
+   "b": 6,
+   "ot": 5,
+   "total": 112,
+   "us": 43,
+   "ca": 17,
+   "de": 9,
+   "jp": 23,
+   "uk": 9
+  },
+  {
+   "sku": "KRKC-0340-MO-ER-SL-14mm",
+   "name": "3.6克拉莫桑石单排耳圈(内径14mm) 白金 铜台银针(4mm/0.3ct莫桑石X12颗) 配2张0.3克拉GRA证书",
+   "line": "耳圈-排钻系列",
+   "batch": "P1",
+   "list": "L1",
+   "mat": "白金(SL)",
+   "cat": "耳圈",
+   "amz": 69,
+   "b": 0,
+   "ot": 3,
+   "total": 72,
+   "us": 36,
+   "ca": 6,
+   "de": 9,
+   "jp": 9,
+   "uk": 9
+  },
+  {
+   "sku": "KRKC-0340-MO-ER-SL-15mm",
+   "name": "4.8克拉莫桑石单排耳圈(内径15mm) 白金 铜台银针(4.5mm/0.4ct莫桑石X12颗) 配2张0.4克拉GRA证书",
+   "line": "耳圈-排钻系列",
+   "batch": "P1",
+   "list": "L1",
+   "mat": "白金(SL)",
+   "cat": "耳圈",
+   "amz": 79,
+   "b": 0,
+   "ot": 3,
+   "total": 82,
+   "us": 38,
+   "ca": 7,
+   "de": 10,
+   "jp": 14,
+   "uk": 10
+  },
+  {
+   "sku": "KRKC-0341-MO-ER-GD-11mm",
+   "name": "1.32克拉莫桑石渐变单排耳圈(内径11mm) 14K金 铜台银针 配2张0.3克拉GRA证书",
+   "line": "耳圈-渐变主石系列",
+   "batch": "P1",
+   "list": "L2",
+   "mat": "14K金(GD)",
+   "cat": "耳圈",
+   "amz": 39,
+   "b": 1,
+   "ot": 0,
+   "total": 40,
+   "us": 15,
+   "ca": 7,
+   "de": 0,
+   "jp": 17,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0341-MO-ER-GD-13mm",
+   "name": "1.38克拉莫桑石渐变单排耳圈(内径13mm) 14K金 铜台银针 配2张0.3克拉GRA证书",
+   "line": "耳圈-渐变主石系列",
+   "batch": "P1",
+   "list": "L2",
+   "mat": "14K金(GD)",
+   "cat": "耳圈",
+   "amz": 39,
+   "b": 14,
+   "ot": 0,
+   "total": 53,
+   "us": 10,
+   "ca": 5,
+   "de": 4,
+   "jp": 20,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0341-MO-ER-GD-15mm",
+   "name": "1.42克拉莫桑石渐变单排耳圈(内径15mm) 14K金 铜台银针 配2张0.3克拉GRA证书",
+   "line": "耳圈-渐变主石系列",
+   "batch": "P1",
+   "list": "L2",
+   "mat": "14K金(GD)",
+   "cat": "耳圈",
+   "amz": 45,
+   "b": 5,
+   "ot": 0,
+   "total": 50,
+   "us": 20,
+   "ca": 3,
+   "de": 8,
+   "jp": 14,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0341-MO-ER-SL-11mm",
+   "name": "1.32克拉莫桑石渐变单排耳圈(内径11mm) 白金 铜台银针 配2张0.3克拉GRA证书",
+   "line": "耳圈-渐变主石系列",
+   "batch": "P1",
+   "list": "L2",
+   "mat": "白金(SL)",
+   "cat": "耳圈",
+   "amz": 67,
+   "b": 0,
+   "ot": 0,
+   "total": 67,
+   "us": 20,
+   "ca": 10,
+   "de": 4,
+   "jp": 33,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0341-MO-ER-SL-13mm",
+   "name": "1.38克拉莫桑石渐变单排耳圈(内径13mm) 白金 铜台银针 配2张0.3克拉GRA证书",
+   "line": "耳圈-渐变主石系列",
+   "batch": "P1",
+   "list": "L2",
+   "mat": "白金(SL)",
+   "cat": "耳圈",
+   "amz": 48,
+   "b": 10,
+   "ot": 2,
+   "total": 60,
+   "us": 11,
+   "ca": 6,
+   "de": 4,
+   "jp": 27,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0341-MO-ER-SL-15mm",
+   "name": "1.42克拉莫桑石渐变单排耳圈(内径15mm) 白金 铜台银针 配2张0.3克拉GRA证书",
+   "line": "耳圈-渐变主石系列",
+   "batch": "P1",
+   "list": "L2",
+   "mat": "白金(SL)",
+   "cat": "耳圈",
+   "amz": 64,
+   "b": 4,
+   "ot": 0,
+   "total": 68,
+   "us": 20,
+   "ca": 4,
+   "de": 4,
+   "jp": 36,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0349-MO-ER-GD-5mm",
+   "name": "1.8克拉渐变莫桑石耳坠(外径15mm内径10.5mm) 14K金 铜台银针 配2张0.5克拉GRA证书",
+   "line": "耳坠-渐变系列",
+   "batch": "P1",
+   "list": "L3",
+   "mat": "14K金(GD)",
+   "cat": "耳坠",
+   "amz": 21,
+   "b": 7,
+   "ot": 0,
+   "total": 28,
+   "us": 13,
+   "ca": 3,
+   "de": 0,
+   "jp": 4,
+   "uk": 1
+  },
+  {
+   "sku": "KRKC-0349-MO-ER-GD-5.5mm",
+   "name": "2.0克拉渐变莫桑石耳坠(外径15mm内径10.5mm) 14K金 铜台银针 配2张0.6克拉GRA证书",
+   "line": "耳坠-渐变系列",
+   "batch": "P1",
+   "list": "L3",
+   "mat": "14K金(GD)",
+   "cat": "耳坠",
+   "amz": 28,
+   "b": 25,
+   "ot": 0,
+   "total": 53,
+   "us": 7,
+   "ca": 2,
+   "de": 0,
+   "jp": 14,
+   "uk": 5
+  },
+  {
+   "sku": "KRKC-0349-MO-ER-GD-6mm",
+   "name": "2.8克拉渐变莫桑石耳坠(外径15mm内径10.5mm) 14K金 铜台银针 配2张0.8克拉GRA证书",
+   "line": "耳坠-渐变系列",
+   "batch": "P1",
+   "list": "L3",
+   "mat": "14K金(GD)",
+   "cat": "耳坠",
+   "amz": 34,
+   "b": 3,
+   "ot": 0,
+   "total": 37,
+   "us": 9,
+   "ca": 4,
+   "de": 3,
+   "jp": 13,
+   "uk": 5
+  },
+  {
+   "sku": "KRKC-0349-MO-ER-SL-5mm",
+   "name": "1.8克拉渐变莫桑石耳坠(外径15mm内径10.5mm) 白金 铜台银针 配2张0.5克拉GRA证书",
+   "line": "耳坠-渐变系列",
+   "batch": "P1",
+   "list": "L3",
+   "mat": "白金(SL)",
+   "cat": "耳坠",
+   "amz": 27,
+   "b": 6,
+   "ot": 0,
+   "total": 33,
+   "us": 13,
+   "ca": 5,
+   "de": 1,
+   "jp": 7,
+   "uk": 1
+  },
+  {
+   "sku": "KRKC-0349-MO-ER-SL-5.5mm",
+   "name": "2.0克拉渐变莫桑石耳坠(外径15mm内径10.5mm) 白金 铜台银针 配2张0.6克拉GRA证书",
+   "line": "耳坠-渐变系列",
+   "batch": "P1",
+   "list": "L3",
+   "mat": "白金(SL)",
+   "cat": "耳坠",
+   "amz": 16,
+   "b": 20,
+   "ot": 0,
+   "total": 36,
+   "us": 9,
+   "ca": 1,
+   "de": 0,
+   "jp": 5,
+   "uk": 1
+  },
+  {
+   "sku": "KRKC-0349-MO-ER-SL-6mm",
+   "name": "2.8克拉渐变莫桑石耳坠(外径15mm内径10.5mm) 白金 铜台银针 配2张0.8克拉GRA证书",
+   "line": "耳坠-渐变系列",
+   "batch": "P1",
+   "list": "L3",
+   "mat": "白金(SL)",
+   "cat": "耳坠",
+   "amz": 36,
+   "b": 14,
+   "ot": 0,
+   "total": 50,
+   "us": 12,
+   "ca": 4,
+   "de": 2,
+   "jp": 9,
+   "uk": 9
+  },
+  {
+   "sku": "KRKC-0343-MO-ER-GD",
+   "name": "5mm圆形主石莫桑石耳圈(外径15mm内径11.5mm) 0.5克拉 14K金 铜台银针 配2张0.5克拉GRA证书",
+   "line": "耳圈-主石系列",
+   "batch": "P1",
+   "list": "L4",
+   "mat": "14K金(GD)",
+   "cat": "耳圈",
+   "amz": 25,
+   "b": 53,
+   "ot": 0,
+   "total": 78,
+   "us": 17,
+   "ca": 0,
+   "de": 3,
+   "jp": 5,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0344-MO-ER-GD",
+   "name": "6.5mm心形主石莫桑石耳圈(外径15mm内径11.5mm) 1.0克拉 14K金 铜台银针 配2张6.5*6.5mm/1.0克拉GRA证书",
+   "line": "耳圈-主石系列",
+   "batch": "P1",
+   "list": "L4",
+   "mat": "14K金(GD)",
+   "cat": "耳圈",
+   "amz": 27,
+   "b": 30,
+   "ot": 0,
+   "total": 57,
+   "us": 14,
+   "ca": 0,
+   "de": 2,
+   "jp": 11,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0346-MO-ER-GD",
+   "name": "4mm公主方主石莫桑石耳圈(外径15mm内径11.5mm) 0.4克拉 14K金 铜台银针 配2张4*4mm/0.4克拉GRA证书",
+   "line": "耳圈-主石系列",
+   "batch": "P1",
+   "list": "L4",
+   "mat": "14K金(GD)",
+   "cat": "耳圈",
+   "amz": 21,
+   "b": 26,
+   "ot": 0,
+   "total": 47,
+   "us": 7,
+   "ca": 1,
+   "de": 3,
+   "jp": 10,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0347-MO-ER-GD",
+   "name": "5mm圆形簇拥莫桑石耳圈(外径15mm内径11.5mm) 0.5克拉 14K金 铜台银针 配2张0.5克拉GRA证书",
+   "line": "耳圈-主石系列",
+   "batch": "P1",
+   "list": "L4",
+   "mat": "14K金(GD)",
+   "cat": "耳圈",
+   "amz": 26,
+   "b": 6,
+   "ot": 0,
+   "total": 32,
+   "us": 12,
+   "ca": 0,
+   "de": 0,
+   "jp": 14,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0343-MO-ER-SL",
+   "name": "5mm圆形主石莫桑石耳圈(外径15mm内径11.5mm) 0.5克拉 白金 铜台银针 配2张0.5克拉GRA证书",
+   "line": "耳圈-主石系列",
+   "batch": "P1",
+   "list": "L4",
+   "mat": "白金(SL)",
+   "cat": "耳圈",
+   "amz": 36,
+   "b": 28,
+   "ot": 8,
+   "total": 72,
+   "us": 14,
+   "ca": 5,
+   "de": 1,
+   "jp": 16,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0344-MO-ER-SL",
+   "name": "6.5mm心形主石莫桑石耳圈(外径15mm内径11.5mm) 1.0克拉 白金 铜台银针 配2张6.5*6.5mm/1.0克拉GRA证书",
+   "line": "耳圈-主石系列",
+   "batch": "P1",
+   "list": "L4",
+   "mat": "白金(SL)",
+   "cat": "耳圈",
+   "amz": 21,
+   "b": 17,
+   "ot": 13,
+   "total": 51,
+   "us": 11,
+   "ca": 0,
+   "de": 0,
+   "jp": 10,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0346-MO-ER-SL",
+   "name": "4mm公主方主石莫桑石耳圈(外径15mm内径11.5mm) 0.4克拉 白金 铜台银针 配2张4*4mm/0.4克拉GRA证书",
+   "line": "耳圈-主石系列",
+   "batch": "P1",
+   "list": "L4",
+   "mat": "白金(SL)",
+   "cat": "耳圈",
+   "amz": 21,
+   "b": 12,
+   "ot": 8,
+   "total": 41,
+   "us": 9,
+   "ca": 0,
+   "de": 0,
+   "jp": 12,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0347-MO-ER-SL",
+   "name": "5mm圆形簇拥莫桑石耳圈(外径15mm内径11.5mm) 0.5克拉 白金 铜台银针 配2张0.5克拉GRA证书",
+   "line": "耳圈-主石系列",
+   "batch": "P1",
+   "list": "L4",
+   "mat": "白金(SL)",
+   "cat": "耳圈",
+   "amz": 23,
+   "b": 3,
+   "ot": 8,
+   "total": 34,
+   "us": 12,
+   "ca": 0,
+   "de": 0,
+   "jp": 11,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0348-MO-ER-GD-5mm",
+   "name": "1.2克拉双钻莫桑石耳圈(内径7.5mm) 14K金 铜台银针 配2张0.5克拉GRA证书",
+   "line": "耳圈-双钻系列",
+   "batch": "P1",
+   "list": "L5",
+   "mat": "14K金(GD)",
+   "cat": "耳圈",
+   "amz": 51,
+   "b": 0,
+   "ot": 9,
+   "total": 60,
+   "us": 31,
+   "ca": 2,
+   "de": 0,
+   "jp": 15,
+   "uk": 3
+  },
+  {
+   "sku": "KRKC-0348-MO-ER-GD-6.5mm",
+   "name": "2.6克拉双钻莫桑石耳圈(内径10.5mm) 14K金 铜台银针 配2张1.0克拉GRA证书",
+   "line": "耳圈-双钻系列",
+   "batch": "P1",
+   "list": "L5",
+   "mat": "14K金(GD)",
+   "cat": "耳圈",
+   "amz": 42,
+   "b": 3,
+   "ot": 9,
+   "total": 54,
+   "us": 21,
+   "ca": 0,
+   "de": 0,
+   "jp": 16,
+   "uk": 5
+  },
+  {
+   "sku": "KRKC-0348-MO-ER-SL-5mm",
+   "name": "1.2克拉双钻莫桑石耳圈(内径7.5mm) 白金 铜台银针 配2张0.5克拉GRA证书",
+   "line": "耳圈-双钻系列",
+   "batch": "P1",
+   "list": "L5",
+   "mat": "白金(SL)",
+   "cat": "耳圈",
+   "amz": 52,
+   "b": 1,
+   "ot": 9,
+   "total": 62,
+   "us": 23,
+   "ca": 4,
+   "de": 0,
+   "jp": 21,
+   "uk": 4
+  },
+  {
+   "sku": "KRKC-0348-MO-ER-SL-6.5mm",
+   "name": "2.6克拉双钻莫桑石耳圈(内径10.5mm) 白金 铜台银针 配2张1.0克拉GRA证书",
+   "line": "耳圈-双钻系列",
+   "batch": "P1",
+   "list": "L5",
+   "mat": "白金(SL)",
+   "cat": "耳圈",
+   "amz": 38,
+   "b": 4,
+   "ot": 9,
+   "total": 51,
+   "us": 16,
+   "ca": 2,
+   "de": 0,
+   "jp": 16,
+   "uk": 4
+  },
+  {
+   "sku": "KRKC-0350-MO-ER-GD-3.8mm",
+   "name": "1.1克拉渐变莫桑石流苏挂链耳坠 14K金 铜台银针(多配一对硅胶耳束) 配2张0.26克拉GRA证书",
+   "line": "耳坠-流苏系列①",
+   "batch": "P2",
+   "list": "L6",
+   "mat": "14K金(GD)",
+   "cat": "耳坠",
+   "amz": 2,
+   "b": 0,
+   "ot": 0,
+   "total": 2,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 2,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0350-MO-ER-GD-5.7mm",
+   "name": "3.1克拉渐变莫桑石流苏挂链耳坠 14K金 铜台银针(多配一对硅胶耳束) 配2张0.7克拉GRA证书",
+   "line": "耳坠-流苏系列①",
+   "batch": "P2",
+   "list": "L6",
+   "mat": "14K金(GD)",
+   "cat": "耳坠",
+   "amz": 3,
+   "b": 4,
+   "ot": 0,
+   "total": 7,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 3,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0350-MO-ER-SL-3.8mm",
+   "name": "1.1克拉渐变莫桑石流苏挂链耳坠 白金 铜台银针(多配一对硅胶耳束) 配2张0.26克拉GRA证书",
+   "line": "耳坠-流苏系列①",
+   "batch": "P2",
+   "list": "L6",
+   "mat": "白金(SL)",
+   "cat": "耳坠",
+   "amz": 5,
+   "b": 4,
+   "ot": 0,
+   "total": 9,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 5,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0350-MO-ER-SL-5.7mm",
+   "name": "3.1克拉渐变莫桑石流苏挂链耳坠 白金 铜台银针(多配一对硅胶耳束) 配2张0.7克拉GRA证书",
+   "line": "耳坠-流苏系列①",
+   "batch": "P2",
+   "list": "L6",
+   "mat": "白金(SL)",
+   "cat": "耳坠",
+   "amz": 5,
+   "b": 0,
+   "ot": 0,
+   "total": 5,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 5,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0351-MO-ER-GD",
+   "name": "2克拉莫桑石流苏耳坠 14K金 铜台银针(多配一对硅胶耳束) 配2张0.6克拉GRA证书",
+   "line": "耳坠-流苏系列②",
+   "batch": "P2",
+   "list": "L7",
+   "mat": "14K金(GD)",
+   "cat": "耳坠",
+   "amz": 2,
+   "b": 0,
+   "ot": 0,
+   "total": 2,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 2,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0352-MO-ER-GD",
+   "name": "3.2克拉莫桑石流苏耳坠 14K金 铜台银针(多配一对硅胶耳束) 配2张1.0克拉GRA证书",
+   "line": "耳坠-流苏系列②",
+   "batch": "P2",
+   "list": "L7",
+   "mat": "14K金(GD)",
+   "cat": "耳坠",
+   "amz": 5,
+   "b": 4,
+   "ot": 0,
+   "total": 9,
+   "us": 2,
+   "ca": 0,
+   "de": 0,
+   "jp": 3,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0353-MO-ER-GD",
+   "name": "3.8克拉莫桑石流苏耳坠 14K金 铜台银针(多配一对硅胶耳束) 配2张1.0克拉GRA证书",
+   "line": "耳坠-流苏系列②",
+   "batch": "P2",
+   "list": "L7",
+   "mat": "14K金(GD)",
+   "cat": "耳坠",
+   "amz": 3,
+   "b": 0,
+   "ot": 0,
+   "total": 3,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 3,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0354-MO-ER-GD",
+   "name": "5克拉莫桑石流苏耳坠 14K金 铜台银针(多配一对硅胶耳束) 配2张1.0克拉GRA证书",
+   "line": "耳坠-流苏系列②",
+   "batch": "P2",
+   "list": "L7",
+   "mat": "14K金(GD)",
+   "cat": "耳坠",
+   "amz": 2,
+   "b": 5,
+   "ot": 0,
+   "total": 7,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 2,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0351-MO-ER-SL",
+   "name": "2克拉莫桑石流苏耳坠 白金 铜台银针(多配一对硅胶耳束) 配2张0.6克拉GRA证书",
+   "line": "耳坠-流苏系列②",
+   "batch": "P2",
+   "list": "L7",
+   "mat": "白金(SL)",
+   "cat": "耳坠",
+   "amz": 4,
+   "b": 2,
+   "ot": 0,
+   "total": 6,
+   "us": 2,
+   "ca": 0,
+   "de": 0,
+   "jp": 2,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0352-MO-ER-SL",
+   "name": "3.2克拉莫桑石流苏耳坠 白金 铜台银针(多配一对硅胶耳束) 配2张1.0克拉GRA证书",
+   "line": "耳坠-流苏系列②",
+   "batch": "P2",
+   "list": "L7",
+   "mat": "白金(SL)",
+   "cat": "耳坠",
+   "amz": 2,
+   "b": 0,
+   "ot": 0,
+   "total": 2,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 2,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0353-MO-ER-SL",
+   "name": "3.8克拉莫桑石流苏耳坠 白金 铜台银针(多配一对硅胶耳束) 配2张1.0克拉GRA证书",
+   "line": "耳坠-流苏系列②",
+   "batch": "P2",
+   "list": "L7",
+   "mat": "白金(SL)",
+   "cat": "耳坠",
+   "amz": 5,
+   "b": 0,
+   "ot": 0,
+   "total": 5,
+   "us": 2,
+   "ca": 0,
+   "de": 0,
+   "jp": 3,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0354-MO-ER-SL",
+   "name": "5克拉莫桑石流苏耳坠 白金 铜台银针(多配一对硅胶耳束) 配2张1.0克拉GRA证书",
+   "line": "耳坠-流苏系列②",
+   "batch": "P2",
+   "list": "L7",
+   "mat": "白金(SL)",
+   "cat": "耳坠",
+   "amz": 2,
+   "b": 0,
+   "ot": 0,
+   "total": 2,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 2,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0355-MO-ER-GD",
+   "name": "四爪尖钉圆形莫桑石渐变杠杆耳坠 0.5克拉（铜台+银针+银耳拍) 14K金+配2张0.5克拉GRA证书",
+   "line": "耳坠-Leverback①",
+   "batch": "P2",
+   "list": "L8",
+   "mat": "14K金(GD)",
+   "cat": "耳坠",
+   "amz": 8,
+   "b": 1,
+   "ot": 0,
+   "total": 9,
+   "us": 4,
+   "ca": 0,
+   "de": 0,
+   "jp": 4,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0355-MO-ER-SL",
+   "name": "四爪尖钉圆形莫桑石渐变杠杆耳坠 0.5克拉（铜台+银针+银耳拍) 白金+配2张0.5克拉GRA证书",
+   "line": "耳坠-Leverback①",
+   "batch": "P2",
+   "list": "L8",
+   "mat": "白金(SL)",
+   "cat": "耳坠",
+   "amz": 8,
+   "b": 1,
+   "ot": 0,
+   "total": 9,
+   "us": 3,
+   "ca": 1,
+   "de": 0,
+   "jp": 4,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0356-MO-ER-GD",
+   "name": "四爪尖钉心型莫桑石渐变杠杆耳坠 0.6克拉（铜台+银针+银耳拍) 14K金+配2张5.5*5.5mm/0.6克拉GRA证书",
+   "line": "耳坠-Leverback①",
+   "batch": "P2",
+   "list": "L8",
+   "mat": "14K金(GD)",
+   "cat": "耳坠",
+   "amz": 4,
+   "b": 7,
+   "ot": 0,
+   "total": 11,
+   "us": 2,
+   "ca": 0,
+   "de": 0,
+   "jp": 2,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0356-MO-ER-SL",
+   "name": "四爪尖钉心型莫桑石渐变杠杆耳坠 0.6克拉（铜台+银针+银耳拍) 白金+配2张5.5*5.5mm/0.6克拉GRA证书",
+   "line": "耳坠-Leverback①",
+   "batch": "P2",
+   "list": "L8",
+   "mat": "白金(SL)",
+   "cat": "耳坠",
+   "amz": 5,
+   "b": 5,
+   "ot": 0,
+   "total": 10,
+   "us": 1,
+   "ca": 1,
+   "de": 0,
+   "jp": 3,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0357-MO-ER-GD",
+   "name": "微镶簇拥圆形莫桑石杠杆耳坠 0.5克拉（铜台+银针+银耳拍) 14K金+配2张0.5克拉GRA证书",
+   "line": "耳坠-Leverback①",
+   "batch": "P2",
+   "list": "L8",
+   "mat": "14K金(GD)",
+   "cat": "耳坠",
+   "amz": 4,
+   "b": 6,
+   "ot": 0,
+   "total": 10,
+   "us": 2,
+   "ca": 0,
+   "de": 0,
+   "jp": 2,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0357-MO-ER-SL",
+   "name": "微镶簇拥圆形莫桑石杠杆耳坠 0.5克拉（铜台+银针+银耳拍) 白金+配2张0.5克拉GRA证书",
+   "line": "耳坠-Leverback①",
+   "batch": "P2",
+   "list": "L8",
+   "mat": "白金(SL)",
+   "cat": "耳坠",
+   "amz": 2,
+   "b": 6,
+   "ot": 0,
+   "total": 8,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 2,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0337-MO-ER-GD-5mm",
+   "name": "四爪尖钉圆形莫桑石杠杆扣耳坠 0.5克拉（铜台+银针+银耳拍) 14K金+配2张0.5克拉GRA黑卡证书",
+   "line": "耳坠-Leverback②",
+   "batch": "P2",
+   "list": "L9",
+   "mat": "14K金(GD)",
+   "cat": "耳坠",
+   "amz": 260,
+   "b": 25,
+   "ot": 10,
+   "total": 295,
+   "us": 181,
+   "ca": 5,
+   "de": 4,
+   "jp": 4,
+   "uk": 66
+  },
+  {
+   "sku": "KRKC-0337-MO-ER-GD-6.5mm",
+   "name": "四爪尖钉圆形莫桑石杠杆扣耳坠 1.0克拉（铜台+银针+银耳拍) 14K金+配2张1.0克拉GRA黑卡证书",
+   "line": "耳坠-Leverback②",
+   "batch": "P2",
+   "list": "L9",
+   "mat": "14K金(GD)",
+   "cat": "耳坠",
+   "amz": 88,
+   "b": 127,
+   "ot": 3,
+   "total": 218,
+   "us": 47,
+   "ca": 8,
+   "de": 12,
+   "jp": 5,
+   "uk": 16
+  },
+  {
+   "sku": "KRKC-0337-MO-ER-SL-5mm",
+   "name": "四爪尖钉圆形莫桑石杠杆扣耳坠 0.5克拉（铜台+银针+银耳拍) 白金+配2张0.5克拉GRA黑卡证书",
+   "line": "耳坠-Leverback②",
+   "batch": "P2",
+   "list": "L9",
+   "mat": "白金(SL)",
+   "cat": "耳坠",
+   "amz": 108,
+   "b": 30,
+   "ot": 8,
+   "total": 146,
+   "us": 60,
+   "ca": 8,
+   "de": 4,
+   "jp": 13,
+   "uk": 23
+  },
+  {
+   "sku": "KRKC-0337-MO-ER-SL-6.5mm",
+   "name": "四爪尖钉圆形莫桑石杠杆扣耳坠 1.0克拉（铜台+银针+银耳拍) 白金+配2张1.0克拉GRA黑卡证书",
+   "line": "耳坠-Leverback②",
+   "batch": "P2",
+   "list": "L9",
+   "mat": "白金(SL)",
+   "cat": "耳坠",
+   "amz": 86,
+   "b": 31,
+   "ot": 8,
+   "total": 125,
+   "us": 38,
+   "ca": 10,
+   "de": 7,
+   "jp": 20,
+   "uk": 11
+  },
+  {
+   "sku": "KRKC-0338-MO-ER-GD-4.5mm",
+   "name": "四爪尖钉公主方莫桑石杠杆扣耳坠 0.6克拉（铜台+银针+银耳拍) 14K金+配2张4.5*4.5mm/0.6克拉GRA黑卡证书",
+   "line": "耳坠-Leverback②",
+   "batch": "P2",
+   "list": "L9",
+   "mat": "14K金(GD)",
+   "cat": "耳坠",
+   "amz": 46,
+   "b": 3,
+   "ot": 0,
+   "total": 49,
+   "us": 27,
+   "ca": 1,
+   "de": 8,
+   "jp": 1,
+   "uk": 9
+  },
+  {
+   "sku": "KRKC-0338-MO-ER-GD-5.5mm",
+   "name": "四爪尖钉公主方莫桑石杠杆扣耳坠 1.0克拉（铜台+银针+银耳拍) 14K金+配2张5.5*5.5mm/1.0克拉GRA黑卡证书",
+   "line": "耳坠-Leverback②",
+   "batch": "P2",
+   "list": "L9",
+   "mat": "14K金(GD)",
+   "cat": "耳坠",
+   "amz": 52,
+   "b": 17,
+   "ot": 0,
+   "total": 69,
+   "us": 22,
+   "ca": 4,
+   "de": 10,
+   "jp": 3,
+   "uk": 13
+  },
+  {
+   "sku": "KRKC-0338-MO-ER-SL-4.5mm",
+   "name": "四爪尖钉公主方莫桑石杠杆扣耳坠 0.6克拉（铜台+银针+银耳拍) 白金+配2张4.5*4.5/0.6克拉GRA黑卡证书",
+   "line": "耳坠-Leverback②",
+   "batch": "P2",
+   "list": "L9",
+   "mat": "白金(SL)",
+   "cat": "耳坠",
+   "amz": 26,
+   "b": 5,
+   "ot": 0,
+   "total": 31,
+   "us": 16,
+   "ca": 3,
+   "de": 2,
+   "jp": 2,
+   "uk": 3
+  },
+  {
+   "sku": "KRKC-0338-MO-ER-SL-5.5mm",
+   "name": "四爪尖钉公主方莫桑石杠杆扣耳坠 1.0克拉（铜台+银针+银耳拍) 白金+配2张5.5*5.5mm/1.0克拉GRA黑卡证书",
+   "line": "耳坠-Leverback②",
+   "batch": "P2",
+   "list": "L9",
+   "mat": "白金(SL)",
+   "cat": "耳坠",
+   "amz": 19,
+   "b": 18,
+   "ot": 0,
+   "total": 37,
+   "us": 14,
+   "ca": 0,
+   "de": 0,
+   "jp": 3,
+   "uk": 2
+  },
+  {
+   "sku": "KRKC-0358-MO-ER-GD",
+   "name": "双闪四爪圆形莫桑石杠杆扣耳坠 1.0克拉（铜台+银针+银耳拍) 14K金+配2张1.0克拉GRA证书",
+   "line": "耳坠-Leverback②",
+   "batch": "P2",
+   "list": "L9",
+   "mat": "14K金(GD)",
+   "cat": "耳坠",
+   "amz": 4,
+   "b": 0,
+   "ot": 0,
+   "total": 4,
+   "us": 2,
+   "ca": 0,
+   "de": 0,
+   "jp": 2,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0358-MO-ER-SL",
+   "name": "双闪四爪圆形莫桑石杠杆扣耳坠 1.0克拉（铜台+银针+银耳拍) 白金+配2张1.0克拉GRA证书",
+   "line": "耳坠-Leverback②",
+   "batch": "P2",
+   "list": "L9",
+   "mat": "白金(SL)",
+   "cat": "耳坠",
+   "amz": 6,
+   "b": 7,
+   "ot": 0,
+   "total": 13,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 6,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0359-MO-ER-GD",
+   "name": "双闪簇拥圆形莫桑石杠杆耳坠 0.5克拉（铜台+银针+银耳拍) 14K金+配2张0.5克拉GRA证书",
+   "line": "耳坠-Leverback②",
+   "batch": "P2",
+   "list": "L9",
+   "mat": "14K金(GD)",
+   "cat": "耳坠",
+   "amz": 5,
+   "b": 0,
+   "ot": 0,
+   "total": 5,
+   "us": 1,
+   "ca": 0,
+   "de": 1,
+   "jp": 3,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0359-MO-ER-SL",
+   "name": "双闪簇拥圆形莫桑石杠杆耳坠 0.5克拉（铜台+银针+银耳拍) 白金+配2张0.5克拉GRA证书",
+   "line": "耳坠-Leverback②",
+   "batch": "P2",
+   "list": "L9",
+   "mat": "白金(SL)",
+   "cat": "耳坠",
+   "amz": 4,
+   "b": 0,
+   "ot": 0,
+   "total": 4,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 4,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0336-MO-ER-GD-6mm",
+   "name": "花瓣簇拥莫桑石耳钉 （总克拉0.5ct tw）（铜台+银针) 14K金+配2张0.03ctGRA黑卡证书(多配一对硅胶耳束)",
+   "line": "耳钉-花瓣簇拥系列",
+   "batch": "P3",
+   "list": "L10",
+   "mat": "14K金(GD)",
+   "cat": "耳钉",
+   "amz": 0,
+   "b": 69,
+   "ot": 0,
+   "total": 69,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 0,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0336-MO-ER-SL-6mm",
+   "name": "花瓣簇拥莫桑石耳钉 （总克拉0.5ct tw）（铜台+银针) 白金+配2张0.03ctGRA黑卡证书(多配一对硅胶耳束)",
+   "line": "耳钉-花瓣簇拥系列",
+   "batch": "P3",
+   "list": "L10",
+   "mat": "白金(SL)",
+   "cat": "耳钉",
+   "amz": 0,
+   "b": 192,
+   "ot": 0,
+   "total": 192,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 0,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0336-MO-ER-GD-7.5mm",
+   "name": "花瓣簇拥莫桑石耳钉 （总克拉1.0ct tw）（铜台+银针) 14K金+配2张0.06ctGRA黑卡证书(多配一对硅胶耳束)",
+   "line": "耳钉-花瓣簇拥系列",
+   "batch": "P3",
+   "list": "L10",
+   "mat": "14K金(GD)",
+   "cat": "耳钉",
+   "amz": 0,
+   "b": 186,
+   "ot": 0,
+   "total": 186,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 0,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0336-MO-ER-SL-7.5mm",
+   "name": "花瓣簇拥莫桑石耳钉 （总克拉1.0ct tw）（铜台+银针) 白金+配2张0.06ctGRA黑卡证书(多配一对硅胶耳束)",
+   "line": "耳钉-花瓣簇拥系列",
+   "batch": "P3",
+   "list": "L10",
+   "mat": "白金(SL)",
+   "cat": "耳钉",
+   "amz": 0,
+   "b": 406,
+   "ot": 0,
+   "total": 406,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 0,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0336-MO-ER-GD-9mm",
+   "name": "花瓣簇拥莫桑石耳钉 （总克拉1.5ct tw）（铜台+银针) 14K金+配2张0.1ctGRA黑卡证书(多配一对硅胶耳束)",
+   "line": "耳钉-花瓣簇拥系列",
+   "batch": "P3",
+   "list": "L10",
+   "mat": "14K金(GD)",
+   "cat": "耳钉",
+   "amz": 0,
+   "b": 76,
+   "ot": 0,
+   "total": 76,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 0,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0336-MO-ER-SL-9mm",
+   "name": "花瓣簇拥莫桑石耳钉 （总克拉1.5ct tw）（铜台+银针) 白金+配2张0.1ctGRA黑卡证书(多配一对硅胶耳束)",
+   "line": "耳钉-花瓣簇拥系列",
+   "batch": "P3",
+   "list": "L10",
+   "mat": "白金(SL)",
+   "cat": "耳钉",
+   "amz": 0,
+   "b": 160,
+   "ot": 0,
+   "total": 160,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 0,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0336-MO-ER-GD-10.5mm",
+   "name": "花瓣簇拥莫桑石耳钉 （总克拉3ct tw）（铜台+银针) 14K金+配2张0.2ctGRA黑卡证书(多配一对硅胶耳束)",
+   "line": "耳钉-花瓣簇拥系列",
+   "batch": "P3",
+   "list": "L10",
+   "mat": "14K金(GD)",
+   "cat": "耳钉",
+   "amz": 0,
+   "b": 41,
+   "ot": 0,
+   "total": 41,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 0,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0336-MO-ER-SL-10.5mm",
+   "name": "花瓣簇拥莫桑石耳钉 （总克拉3ct tw）（铜台+银针) 白金+配2张0.2ctGRA黑卡证书(多配一对硅胶耳束)",
+   "line": "耳钉-花瓣簇拥系列",
+   "batch": "P3",
+   "list": "L10",
+   "mat": "白金(SL)",
+   "cat": "耳钉",
+   "amz": 0,
+   "b": 38,
+   "ot": 0,
+   "total": 38,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 0,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0360-MO-ER-GD-5mm",
+   "name": "尖钉公主方白色莫桑石耳钉 0.8克拉（铜台+银针) 14K金+配2张5*5mm/0.8克拉GRA证书(多配一对硅胶耳束)",
+   "line": "耳钉-异型-公主方",
+   "batch": "P3",
+   "list": "L11",
+   "mat": "14K金(GD)",
+   "cat": "耳钉",
+   "amz": 0,
+   "b": 0,
+   "ot": 0,
+   "total": 0,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 0,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0360-MO-ER-GD-5.5mm",
+   "name": "尖钉公主方白色莫桑石耳钉 1克拉（铜台+银针) 14K金+配2张5.5*5.5mm/1克拉GRA证书(多配一对硅胶耳束)",
+   "line": "耳钉-异型-公主方",
+   "batch": "P3",
+   "list": "L11",
+   "mat": "14K金(GD)",
+   "cat": "耳钉",
+   "amz": 0,
+   "b": 0,
+   "ot": 0,
+   "total": 0,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 0,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0360-MO-ER-GD-6mm",
+   "name": "尖钉公主方白色莫桑石耳钉 1.2克拉（铜台+银针) 14K金+配2张6*6mm/1.2克拉GRA证书(多配一对硅胶耳束)",
+   "line": "耳钉-异型-公主方",
+   "batch": "P3",
+   "list": "L11",
+   "mat": "14K金(GD)",
+   "cat": "耳钉",
+   "amz": 0,
+   "b": 0,
+   "ot": 0,
+   "total": 0,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 0,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0360-MO-ER-SL-5mm",
+   "name": "尖钉公主方白色莫桑石耳钉 0.8克拉（铜台+银针) 白金+配2张5*5mm/0.8克拉GRA证书(多配一对硅胶耳束)",
+   "line": "耳钉-异型-公主方",
+   "batch": "P3",
+   "list": "L11",
+   "mat": "白金(SL)",
+   "cat": "耳钉",
+   "amz": 0,
+   "b": 0,
+   "ot": 0,
+   "total": 0,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 0,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0360-MO-ER-SL-5.5mm",
+   "name": "尖钉公主方白色莫桑石耳钉 1克拉（铜台+银针) 白金+配2张5.5*5.5mm/1克拉GRA证书(多配一对硅胶耳束)",
+   "line": "耳钉-异型-公主方",
+   "batch": "P3",
+   "list": "L11",
+   "mat": "白金(SL)",
+   "cat": "耳钉",
+   "amz": 0,
+   "b": 0,
+   "ot": 0,
+   "total": 0,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 0,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0360-MO-ER-SL-6mm",
+   "name": "尖钉公主方白色莫桑石耳钉 1.2克拉（铜台+银针) 白金+配2张6*6mm/1.2克拉GRA证书(多配一对硅胶耳束)",
+   "line": "耳钉-异型-公主方",
+   "batch": "P3",
+   "list": "L11",
+   "mat": "白金(SL)",
+   "cat": "耳钉",
+   "amz": 0,
+   "b": 0,
+   "ot": 0,
+   "total": 0,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 0,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0361-MO-ER-GD",
+   "name": "簇拥水滴型莫桑石耳钉 1克拉（铜台+银针) 14K金+配2张5*8mm/1克拉GRA证书(多配一对硅胶耳束)",
+   "line": "耳钉-异型-簇拥系列",
+   "batch": "P3",
+   "list": "L12",
+   "mat": "14K金(GD)",
+   "cat": "耳钉",
+   "amz": 0,
+   "b": 0,
+   "ot": 0,
+   "total": 0,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 0,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0361-MO-ER-SL",
+   "name": "簇拥水滴型莫桑石耳钉 1克拉（铜台+银针) 白金+配2张5*8mm/1克拉GRA证书(多配一对硅胶耳束)",
+   "line": "耳钉-异型-簇拥系列",
+   "batch": "P3",
+   "list": "L12",
+   "mat": "白金(SL)",
+   "cat": "耳钉",
+   "amz": 0,
+   "b": 1,
+   "ot": 0,
+   "total": 1,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 0,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0362-MO-ER-GD",
+   "name": "簇拥旦型莫桑石耳钉 1克拉（铜台+银针) 14K金+配2张5*7mm/1克拉GRA证书(多配一对硅胶耳束)",
+   "line": "耳钉-异型-簇拥系列",
+   "batch": "P3",
+   "list": "L12",
+   "mat": "14K金(GD)",
+   "cat": "耳钉",
+   "amz": 0,
+   "b": 0,
+   "ot": 0,
+   "total": 0,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 0,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0362-MO-ER-SL",
+   "name": "簇拥旦型莫桑石耳钉 1克拉（铜台+银针) 白金+配2张5*7mm/1克拉GRA证书(多配一对硅胶耳束)",
+   "line": "耳钉-异型-簇拥系列",
+   "batch": "P3",
+   "list": "L12",
+   "mat": "白金(SL)",
+   "cat": "耳钉",
+   "amz": 0,
+   "b": 0,
+   "ot": 0,
+   "total": 0,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 0,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0291-ER-MO-GD-6.5mm",
+   "name": "簇拥心型莫桑石耳钉 1克拉(铜台+银针）14K金+配2张1克拉GRA证书(多配一对硅胶耳束)",
+   "line": "耳钉-异型-簇拥系列",
+   "batch": "P3",
+   "list": "L12",
+   "mat": "14K金(GD)",
+   "cat": "耳钉",
+   "amz": 0,
+   "b": 0,
+   "ot": 0,
+   "total": 0,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 0,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0291-ER-MO-SL-6.5mm",
+   "name": "簇拥心型莫桑石耳钉 1克拉(铜台+银针）白金+配2张1克拉GRA证书(多配一对硅胶耳束)",
+   "line": "耳钉-异型-簇拥系列",
+   "batch": "P3",
+   "list": "L12",
+   "mat": "白金(SL)",
+   "cat": "耳钉",
+   "amz": 0,
+   "b": 1,
+   "ot": 0,
+   "total": 1,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 0,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0363-MO-ER-GD",
+   "name": "簇拥祖母绿型莫桑石耳钉 1克拉（铜台+银针) 白金+配2张5*7mm/1克拉GRA证书(多配一对硅胶耳束)",
+   "line": "耳钉-异型-簇拥系列",
+   "batch": "P3",
+   "list": "L12",
+   "mat": "14K金(GD)",
+   "cat": "耳钉",
+   "amz": 0,
+   "b": 0,
+   "ot": 0,
+   "total": 0,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 0,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0363-MO-ER-SL",
+   "name": "簇拥祖母绿型莫桑石耳钉 1克拉（铜台+银针) 白金+配2张5*7mm/1克拉GRA证书(多配一对硅胶耳束)",
+   "line": "耳钉-异型-簇拥系列",
+   "batch": "P3",
+   "list": "L12",
+   "mat": "白金(SL)",
+   "cat": "耳钉",
+   "amz": 0,
+   "b": 0,
+   "ot": 0,
+   "total": 0,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 0,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0345-MO-ER-SL",
+   "name": "单钻水滴型莫桑石耳钉 1.5克拉（铜台+银针) 白金+配2张6*9mm/1.5克拉GRA证书(多配一对硅胶耳束)",
+   "line": "耳钉-异型-单钻系列",
+   "batch": "P3",
+   "list": "L13",
+   "mat": "白金(SL)",
+   "cat": "耳钉",
+   "amz": 0,
+   "b": 6,
+   "ot": 0,
+   "total": 6,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 0,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0364-MO-ER-SL",
+   "name": "单钻旦型莫桑石耳钉 1.5克拉（铜台+银针) 白金+配2张6*8mm/1.5克拉GRA证书(多配一对硅胶耳束)",
+   "line": "耳钉-异型-单钻系列",
+   "batch": "P3",
+   "list": "L13",
+   "mat": "白金(SL)",
+   "cat": "耳钉",
+   "amz": 0,
+   "b": 6,
+   "ot": 1,
+   "total": 7,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 0,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0365-MO-ER-SL",
+   "name": "单钻心型莫桑石耳钉 1.5克拉（铜台+银针) 白金+配2张7.5*8mm/1.5克拉GRA证书(多配一对硅胶耳束)",
+   "line": "耳钉-异型-单钻系列",
+   "batch": "P3",
+   "list": "L13",
+   "mat": "白金(SL)",
+   "cat": "耳钉",
+   "amz": 0,
+   "b": 5,
+   "ot": 0,
+   "total": 5,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 0,
+   "uk": 0
+  },
+  {
+   "sku": "KRKC-0366-MO-ER-SL",
+   "name": "单钻祖母绿型莫桑石耳钉 2克拉（铜台+银针) 白金+配2张6*8mm/2克拉GRA证书(多配一对硅胶耳束)",
+   "line": "耳钉-异型-单钻系列",
+   "batch": "P3",
+   "list": "L13",
+   "mat": "白金(SL)",
+   "cat": "耳钉",
+   "amz": 0,
+   "b": 4,
+   "ot": 0,
+   "total": 4,
+   "us": 0,
+   "ca": 0,
+   "de": 0,
+   "jp": 0,
+   "uk": 0
+  }
+ ],
+ "lines": [
+  {
+   "三级品线": "耳圈-排钻系列",
+   "上线批次": "P1",
+   "Listing编码": "L1",
+   "skus": 8,
+   "styles": 1.0,
+   "amz": 619,
+   "b": 50.0,
+   "ot": 26.0,
+   "total": 695,
+   "us": 269.0,
+   "ca": 62.0,
+   "de": 74.0,
+   "jp": 128.0,
+   "uk": 86.0
+  },
+  {
+   "三级品线": "耳圈-渐变主石系列",
+   "上线批次": "P1",
+   "Listing编码": "L2",
+   "skus": 6,
+   "styles": 1.0,
+   "amz": 302,
+   "b": 34.0,
+   "ot": 2.0,
+   "total": 338,
+   "us": 96.0,
+   "ca": 35.0,
+   "de": 24.0,
+   "jp": 147.0,
+   "uk": 0.0
+  },
+  {
+   "三级品线": "耳坠-渐变系列",
+   "上线批次": "P1",
+   "Listing编码": "L3",
+   "skus": 6,
+   "styles": 3.0,
+   "amz": 162,
+   "b": 75.0,
+   "ot": 0.0,
+   "total": 237,
+   "us": 63.0,
+   "ca": 19.0,
+   "de": 6.0,
+   "jp": 52.0,
+   "uk": 22.0
+  },
+  {
+   "三级品线": "耳圈-主石系列",
+   "上线批次": "P1",
+   "Listing编码": "L4",
+   "skus": 8,
+   "styles": 4.0,
+   "amz": 200,
+   "b": 175.0,
+   "ot": 37.0,
+   "total": 412,
+   "us": 96.0,
+   "ca": 6.0,
+   "de": 9.0,
+   "jp": 89.0,
+   "uk": 0.0
+  },
+  {
+   "三级品线": "耳圈-双钻系列",
+   "上线批次": "P1",
+   "Listing编码": "L5",
+   "skus": 4,
+   "styles": 2.0,
+   "amz": 183,
+   "b": 8.0,
+   "ot": 36.0,
+   "total": 227,
+   "us": 91.0,
+   "ca": 8.0,
+   "de": 0.0,
+   "jp": 68.0,
+   "uk": 16.0
+  },
+  {
+   "三级品线": "耳坠-流苏系列①",
+   "上线批次": "P2",
+   "Listing编码": "L6",
+   "skus": 4,
+   "styles": 2.0,
+   "amz": 15,
+   "b": 8.0,
+   "ot": 0.0,
+   "total": 23,
+   "us": 0.0,
+   "ca": 0.0,
+   "de": 0.0,
+   "jp": 15.0,
+   "uk": 0.0
+  },
+  {
+   "三级品线": "耳坠-流苏系列②",
+   "上线批次": "P2",
+   "Listing编码": "L7",
+   "skus": 8,
+   "styles": 4.0,
+   "amz": 25,
+   "b": 11.0,
+   "ot": 0.0,
+   "total": 36,
+   "us": 6.0,
+   "ca": 0.0,
+   "de": 0.0,
+   "jp": 19.0,
+   "uk": 0.0
+  },
+  {
+   "三级品线": "耳坠-Leverback①",
+   "上线批次": "P2",
+   "Listing编码": "L8",
+   "skus": 6,
+   "styles": 3.0,
+   "amz": 31,
+   "b": 26.0,
+   "ot": 0.0,
+   "total": 57,
+   "us": 12.0,
+   "ca": 2.0,
+   "de": 0.0,
+   "jp": 17.0,
+   "uk": 0.0
+  },
+  {
+   "三级品线": "耳坠-Leverback②",
+   "上线批次": "P2",
+   "Listing编码": "L9",
+   "skus": 12,
+   "styles": 4.0,
+   "amz": 704,
+   "b": 263.0,
+   "ot": 29.0,
+   "total": 996,
+   "us": 408.0,
+   "ca": 39.0,
+   "de": 48.0,
+   "jp": 66.0,
+   "uk": 143.0
+  },
+  {
+   "三级品线": "耳钉-花瓣簇拥系列",
+   "上线批次": "P3",
+   "Listing编码": "L10",
+   "skus": 8,
+   "styles": 4.0,
+   "amz": 0,
+   "b": 1168.0,
+   "ot": 0.0,
+   "total": 1168,
+   "us": 0.0,
+   "ca": 0.0,
+   "de": 0.0,
+   "jp": 0.0,
+   "uk": 0.0
+  },
+  {
+   "三级品线": "耳钉-异型-公主方",
+   "上线批次": "P3",
+   "Listing编码": "L11",
+   "skus": 6,
+   "styles": 2.0,
+   "amz": 0,
+   "b": 0.0,
+   "ot": 0.0,
+   "total": 0,
+   "us": 0.0,
+   "ca": 0.0,
+   "de": 0.0,
+   "jp": 0.0,
+   "uk": 0.0
+  },
+  {
+   "三级品线": "耳钉-异型-簇拥系列",
+   "上线批次": "P3",
+   "Listing编码": "L12",
+   "skus": 8,
+   "styles": 4.0,
+   "amz": 0,
+   "b": 2.0,
+   "ot": 0.0,
+   "total": 2,
+   "us": 0.0,
+   "ca": 0.0,
+   "de": 0.0,
+   "jp": 0.0,
+   "uk": 0.0
+  },
+  {
+   "三级品线": "耳钉-异型-单钻系列",
+   "上线批次": "P3",
+   "Listing编码": "L13",
+   "skus": 4,
+   "styles": 4.0,
+   "amz": 0,
+   "b": 21.0,
+   "ot": 1.0,
+   "total": 22,
+   "us": 0.0,
+   "ca": 0.0,
+   "de": 0.0,
+   "jp": 0.0,
+   "uk": 0.0
+  }
+ ],
+ "targets": [
+  {
+   "series": "耳圈-排钻系列",
+   "band": "（45,59]",
+   "monthly": 945.0,
+   "ms": {
+    "US": 450.0,
+    "CA": 225.0,
+    "DE": 90.0,
+    "JP": 120.0,
+    "UK": 60.0
+   },
+   "msSum": 945.0,
+   "launch": "2025-08-01",
+   "newMonths": 3,
+   "matureMonths": 2,
+   "targetNew": 1701.0,
+   "targetNewSales": 548370.0,
+   "targetYear": 3402.0,
+   "targetYearSales": 1096740.0,
+   "siteNew": {
+    "US": 810,
+    "CA": 405,
+    "DE": 162,
+    "JP": 216,
+    "UK": 108
+   }
+  },
+  {
+   "series": "耳圈-渐变主石系列",
+   "band": "（45,50]",
+   "monthly": 495.0,
+   "ms": {
+    "US": 210.0,
+    "CA": 120.0,
+    "DE": 45.0,
+    "JP": 120.0,
+    "UK": null
+   },
+   "msSum": 495.0,
+   "launch": "2025-08-01",
+   "newMonths": 2,
+   "matureMonths": 2,
+   "targetNew": 594.0,
+   "targetNewSales": 209119.68,
+   "targetYear": 1485.0,
+   "targetYearSales": 522799.2,
+   "siteNew": {
+    "US": 252,
+    "CA": 144,
+    "DE": 54,
+    "JP": 144,
+    "UK": null
+   }
+  },
+  {
+   "series": "耳圈-主石系列",
+   "band": "（45,55]",
+   "monthly": 300.0,
+   "ms": {
+    "US": 90.0,
+    "CA": 60.0,
+    "DE": 75.0,
+    "JP": 75.0,
+    "UK": null
+   },
+   "msSum": 300.0,
+   "launch": "2025-08-01",
+   "newMonths": 2,
+   "matureMonths": 2,
+   "targetNew": 360.0,
+   "targetNewSales": 137298.24,
+   "targetYear": 900.0,
+   "targetYearSales": 343245.6,
+   "siteNew": {
+    "US": 108,
+    "CA": 72,
+    "DE": 90,
+    "JP": 90,
+    "UK": null
+   }
+  },
+  {
+   "series": "耳圈-双钻系列",
+   "band": "（45,50]",
+   "monthly": 225.0,
+   "ms": {
+    "US": 90.0,
+    "CA": 60.0,
+    "DE": null,
+    "JP": 75.0,
+    "UK": null
+   },
+   "msSum": 225.0,
+   "launch": "2025-08-01",
+   "newMonths": 2,
+   "matureMonths": 2,
+   "targetNew": 270.0,
+   "targetNewSales": 94294.8,
+   "targetYear": 675.0,
+   "targetYearSales": 235737.0,
+   "siteNew": {
+    "US": 108,
+    "CA": 72,
+    "DE": null,
+    "JP": 90,
+    "UK": null
+   }
+  },
+  {
+   "series": "耳坠-渐变系列",
+   "band": "（49,55]",
+   "monthly": 348.0,
+   "ms": {
+    "US": 105.0,
+    "CA": 60.0,
+    "DE": 48.0,
+    "JP": 90.0,
+    "UK": 45.0
+   },
+   "msSum": 348.0,
+   "launch": "2025-08-01",
+   "newMonths": 2,
+   "matureMonths": 2,
+   "targetNew": 417.6,
+   "targetNewSales": 135442.44,
+   "targetYear": 1044.0,
+   "targetYearSales": 338606.1,
+   "siteNew": {
+    "US": 126,
+    "CA": 72,
+    "DE": 58,
+    "JP": 108,
+    "UK": 54
+   }
+  },
+  {
+   "series": "耳坠-流苏系列①",
+   "band": "（50,59]",
+   "monthly": 189.0,
+   "ms": {
+    "US": 90.0,
+    "CA": 54.0,
+    "DE": null,
+    "JP": 45.0,
+    "UK": null
+   },
+   "msSum": 189.0,
+   "launch": "2025-09-01",
+   "newMonths": 3,
+   "matureMonths": 1,
+   "targetNew": 340.2,
+   "targetNewSales": 144014.76,
+   "targetYear": 567.0,
+   "targetYearSales": 240024.6,
+   "siteNew": {
+    "US": 162,
+    "CA": 97,
+    "DE": null,
+    "JP": 81,
+    "UK": null
+   }
+  },
+  {
+   "series": "耳坠-流苏系列②",
+   "band": "（50,65]",
+   "monthly": 204.0,
+   "ms": {
+    "US": 90.0,
+    "CA": 54.0,
+    "DE": null,
+    "JP": 60.0,
+    "UK": null
+   },
+   "msSum": 204.0,
+   "launch": "2025-09-01",
+   "newMonths": 3,
+   "matureMonths": 1,
+   "targetNew": 367.2,
+   "targetNewSales": 147270.96,
+   "targetYear": 612.0,
+   "targetYearSales": 245451.6,
+   "siteNew": {
+    "US": 162,
+    "CA": 97,
+    "DE": null,
+    "JP": 108,
+    "UK": null
+   }
+  },
+  {
+   "series": "耳坠-Leverback①",
+   "band": "（49,55]",
+   "monthly": 369.0,
+   "ms": {
+    "US": 150.0,
+    "CA": 75.0,
+    "DE": 54.0,
+    "JP": 90.0,
+    "UK": null
+   },
+   "msSum": 369.0,
+   "launch": "2025-09-01",
+   "newMonths": 3,
+   "matureMonths": 1,
+   "targetNew": 664.2,
+   "targetNewSales": 245635.2,
+   "targetYear": 1107.0,
+   "targetYearSales": 409392.0,
+   "siteNew": {
+    "US": 270,
+    "CA": 135,
+    "DE": 97,
+    "JP": 162,
+    "UK": null
+   }
+  },
+  {
+   "series": "耳坠-Leverback②",
+   "band": "（50,59]",
+   "monthly": 228.0,
+   "ms": {
+    "US": 75.0,
+    "CA": 45.0,
+    "DE": 54.0,
+    "JP": 54.0,
+    "UK": null
+   },
+   "msSum": 228.0,
+   "launch": "2025-09-01",
+   "newMonths": 3,
+   "matureMonths": 1,
+   "targetNew": 410.4,
+   "targetNewSales": 180347.04,
+   "targetYear": 684.0,
+   "targetYearSales": 300578.4,
+   "siteNew": {
+    "US": 135,
+    "CA": 81,
+    "DE": 97,
+    "JP": 97,
+    "UK": null
+   }
+  },
+  {
+   "series": "耳钉-花瓣簇拥系列",
+   "band": "（45,55]",
+   "monthly": 270.0,
+   "ms": {
+    "US": 120.0,
+    "CA": 60.0,
+    "DE": null,
+    "JP": 90.0,
+    "UK": null
+   },
+   "msSum": 270.0,
+   "launch": "2025-10-01",
+   "newMonths": 3,
+   "matureMonths": 0,
+   "targetNew": 486.0,
+   "targetNewSales": 166220.64,
+   "targetYear": 648.0,
+   "targetYearSales": 221627.52,
+   "siteNew": {
+    "US": 216,
+    "CA": 108,
+    "DE": null,
+    "JP": 162,
+    "UK": null
+   }
+  },
+  {
+   "series": "耳钉-异型-公主方",
+   "band": "（50,65]",
+   "monthly": 249.0,
+   "ms": {
+    "US": 120.0,
+    "CA": 54.0,
+    "DE": null,
+    "JP": 75.0,
+    "UK": null
+   },
+   "msSum": 249.0,
+   "launch": "2025-10-01",
+   "newMonths": 3,
+   "matureMonths": 0,
+   "targetNew": 448.2,
+   "targetNewSales": 173558.16,
+   "targetYear": 597.6,
+   "targetYearSales": 231410.88,
+   "siteNew": {
+    "US": 216,
+    "CA": 97,
+    "DE": null,
+    "JP": 135,
+    "UK": null
+   }
+  },
+  {
+   "series": "耳钉-异型-簇拥系列",
+   "band": "（50,59]",
+   "monthly": 189.0,
+   "ms": {
+    "US": 75.0,
+    "CA": 54.0,
+    "DE": null,
+    "JP": 60.0,
+    "UK": null
+   },
+   "msSum": 189.0,
+   "launch": "2025-10-01",
+   "newMonths": 3,
+   "matureMonths": 0,
+   "targetNew": 340.2,
+   "targetNewSales": 132314.58,
+   "targetYear": 453.6,
+   "targetYearSales": 176419.44,
+   "siteNew": {
+    "US": 135,
+    "CA": 97,
+    "DE": null,
+    "JP": 108,
+    "UK": null
+   }
+  }
+ ],
+ "amzComp": [
+  {
+   "series": "耳圈-排钻系列",
+   "band": "（45,59]",
+   "launch": "2025-08-01",
+   "newMonths": 3,
+   "targetNew": 1701.0,
+   "actual": 619,
+   "rate": 36.4,
+   "gap": -1082,
+   "siteTarget": {
+    "US": 810,
+    "CA": 405,
+    "DE": 162,
+    "JP": 216,
+    "UK": 108
+   },
+   "monthly": {
+    "US": 450.0,
+    "CA": 225.0,
+    "DE": 90.0,
+    "JP": 120.0,
+    "UK": 60.0
+   }
+  },
+  {
+   "series": "耳圈-渐变主石系列",
+   "band": "（45,50]",
+   "launch": "2025-08-01",
+   "newMonths": 2,
+   "targetNew": 594.0,
+   "actual": 302,
+   "rate": 50.8,
+   "gap": -292,
+   "siteTarget": {
+    "US": 252,
+    "CA": 144,
+    "DE": 54,
+    "JP": 144,
+    "UK": null
+   },
+   "monthly": {
+    "US": 210.0,
+    "CA": 120.0,
+    "DE": 45.0,
+    "JP": 120.0,
+    "UK": null
+   }
+  },
+  {
+   "series": "耳圈-主石系列",
+   "band": "（45,55]",
+   "launch": "2025-08-01",
+   "newMonths": 2,
+   "targetNew": 360.0,
+   "actual": 200,
+   "rate": 55.6,
+   "gap": -160,
+   "siteTarget": {
+    "US": 108,
+    "CA": 72,
+    "DE": 90,
+    "JP": 90,
+    "UK": null
+   },
+   "monthly": {
+    "US": 90.0,
+    "CA": 60.0,
+    "DE": 75.0,
+    "JP": 75.0,
+    "UK": null
+   }
+  },
+  {
+   "series": "耳圈-双钻系列",
+   "band": "（45,50]",
+   "launch": "2025-08-01",
+   "newMonths": 2,
+   "targetNew": 270.0,
+   "actual": 183,
+   "rate": 67.8,
+   "gap": -87,
+   "siteTarget": {
+    "US": 108,
+    "CA": 72,
+    "DE": null,
+    "JP": 90,
+    "UK": null
+   },
+   "monthly": {
+    "US": 90.0,
+    "CA": 60.0,
+    "DE": null,
+    "JP": 75.0,
+    "UK": null
+   }
+  },
+  {
+   "series": "耳坠-渐变系列",
+   "band": "（49,55]",
+   "launch": "2025-08-01",
+   "newMonths": 2,
+   "targetNew": 417.6,
+   "actual": 162,
+   "rate": 38.8,
+   "gap": -255,
+   "siteTarget": {
+    "US": 126,
+    "CA": 72,
+    "DE": 58,
+    "JP": 108,
+    "UK": 54
+   },
+   "monthly": {
+    "US": 105.0,
+    "CA": 60.0,
+    "DE": 48.0,
+    "JP": 90.0,
+    "UK": 45.0
+   }
+  },
+  {
+   "series": "耳坠-流苏系列①",
+   "band": "（50,59]",
+   "launch": "2025-09-01",
+   "newMonths": 3,
+   "targetNew": 340.2,
+   "actual": 15,
+   "rate": 4.4,
+   "gap": -325,
+   "siteTarget": {
+    "US": 162,
+    "CA": 97,
+    "DE": null,
+    "JP": 81,
+    "UK": null
+   },
+   "monthly": {
+    "US": 90.0,
+    "CA": 54.0,
+    "DE": null,
+    "JP": 45.0,
+    "UK": null
+   }
+  },
+  {
+   "series": "耳坠-流苏系列②",
+   "band": "（50,65]",
+   "launch": "2025-09-01",
+   "newMonths": 3,
+   "targetNew": 367.2,
+   "actual": 25,
+   "rate": 6.8,
+   "gap": -342,
+   "siteTarget": {
+    "US": 162,
+    "CA": 97,
+    "DE": null,
+    "JP": 108,
+    "UK": null
+   },
+   "monthly": {
+    "US": 90.0,
+    "CA": 54.0,
+    "DE": null,
+    "JP": 60.0,
+    "UK": null
+   }
+  },
+  {
+   "series": "耳坠-Leverback①",
+   "band": "（49,55]",
+   "launch": "2025-09-01",
+   "newMonths": 3,
+   "targetNew": 664.2,
+   "actual": 31,
+   "rate": 4.7,
+   "gap": -633,
+   "siteTarget": {
+    "US": 270,
+    "CA": 135,
+    "DE": 97,
+    "JP": 162,
+    "UK": null
+   },
+   "monthly": {
+    "US": 150.0,
+    "CA": 75.0,
+    "DE": 54.0,
+    "JP": 90.0,
+    "UK": null
+   }
+  },
+  {
+   "series": "耳坠-Leverback②",
+   "band": "（50,59]",
+   "launch": "2025-09-01",
+   "newMonths": 3,
+   "targetNew": 410.4,
+   "actual": 704,
+   "rate": 171.5,
+   "gap": 293,
+   "siteTarget": {
+    "US": 135,
+    "CA": 81,
+    "DE": 97,
+    "JP": 97,
+    "UK": null
+   },
+   "monthly": {
+    "US": 75.0,
+    "CA": 45.0,
+    "DE": 54.0,
+    "JP": 54.0,
+    "UK": null
+   }
+  },
+  {
+   "series": "耳钉-花瓣簇拥系列",
+   "band": "（45,55]",
+   "launch": "2025-10-01",
+   "newMonths": 3,
+   "targetNew": 486.0,
+   "actual": 0,
+   "rate": 0.0,
+   "gap": -486,
+   "siteTarget": {
+    "US": 216,
+    "CA": 108,
+    "DE": null,
+    "JP": 162,
+    "UK": null
+   },
+   "monthly": {
+    "US": 120.0,
+    "CA": 60.0,
+    "DE": null,
+    "JP": 90.0,
+    "UK": null
+   }
+  },
+  {
+   "series": "耳钉-异型-公主方",
+   "band": "（50,65]",
+   "launch": "2025-10-01",
+   "newMonths": 3,
+   "targetNew": 448.2,
+   "actual": 0,
+   "rate": 0.0,
+   "gap": -448,
+   "siteTarget": {
+    "US": 216,
+    "CA": 97,
+    "DE": null,
+    "JP": 135,
+    "UK": null
+   },
+   "monthly": {
+    "US": 120.0,
+    "CA": 54.0,
+    "DE": null,
+    "JP": 75.0,
+    "UK": null
+   }
+  },
+  {
+   "series": "耳钉-异型-簇拥系列",
+   "band": "（50,59]",
+   "launch": "2025-10-01",
+   "newMonths": 3,
+   "targetNew": 340.2,
+   "actual": 0,
+   "rate": 0.0,
+   "gap": -340,
+   "siteTarget": {
+    "US": 135,
+    "CA": 97,
+    "DE": null,
+    "JP": 108,
+    "UK": null
+   },
+   "monthly": {
+    "US": 75.0,
+    "CA": 54.0,
+    "DE": null,
+    "JP": 60.0,
+    "UK": null
+   }
+  },
+  {
+   "series": "耳钉-异型-单钻系列",
+   "band": "-",
+   "launch": "-",
+   "newMonths": null,
+   "targetNew": 0,
+   "actual": 0,
+   "rate": null,
+   "gap": 0,
+   "siteTarget": {},
+   "monthly": {}
+  }
+ ],
+ "siteComp": [
+  {
+   "site": "US",
+   "actual": 1041,
+   "target": 2700,
+   "rate": 38.6,
+   "gap": -1659
+  },
+  {
+   "site": "CA",
+   "actual": 171,
+   "target": 1477,
+   "rate": 11.6,
+   "gap": -1306
+  },
+  {
+   "site": "DE",
+   "actual": 161,
+   "target": 558,
+   "rate": 28.9,
+   "gap": -397
+  },
+  {
+   "site": "JP",
+   "actual": 601,
+   "target": 1501,
+   "rate": 40.0,
+   "gap": -900
+  },
+  {
+   "site": "UK",
+   "actual": 267,
+   "target": 162,
+   "rate": 164.8,
+   "gap": 105
+  }
+ ],
+ "amzTotal": {
+  "actual": 2241,
+  "target": 6399,
+  "targetSales": 2313886.5
+ },
+ "byBatch": [
+  {
+   "上线批次": "P1",
+   "amz": 1466,
+   "b": 342.0,
+   "ot": 101.0,
+   "total": 1909,
+   "us": 615.0,
+   "ca": 130.0,
+   "de": 113.0,
+   "jp": 484.0,
+   "uk": 124.0,
+   "skus": 32,
+   "zero": 0
+  },
+  {
+   "上线批次": "P2",
+   "amz": 775,
+   "b": 308.0,
+   "ot": 29.0,
+   "total": 1112,
+   "us": 426.0,
+   "ca": 41.0,
+   "de": 48.0,
+   "jp": 117.0,
+   "uk": 143.0,
+   "skus": 30,
+   "zero": 0
+  },
+  {
+   "上线批次": "P3",
+   "amz": 0,
+   "b": 1191.0,
+   "ot": 1.0,
+   "total": 1192,
+   "us": 0.0,
+   "ca": 0.0,
+   "de": 0.0,
+   "jp": 0.0,
+   "uk": 0.0,
+   "skus": 26,
+   "zero": 12
+  }
+ ],
+ "byCat": [
+  {
+   "结构": "耳圈",
+   "amz": 1304,
+   "b": 267.0,
+   "ot": 101.0,
+   "total": 1672,
+   "us": 552.0,
+   "ca": 111.0,
+   "de": 107.0,
+   "jp": 432.0,
+   "uk": 102.0,
+   "skus": 26,
+   "zero": 0
+  },
+  {
+   "结构": "耳坠",
+   "amz": 937,
+   "b": 383.0,
+   "ot": 29.0,
+   "total": 1349,
+   "us": 489.0,
+   "ca": 60.0,
+   "de": 54.0,
+   "jp": 169.0,
+   "uk": 165.0,
+   "skus": 36,
+   "zero": 0
+  },
+  {
+   "结构": "耳钉",
+   "amz": 0,
+   "b": 1191.0,
+   "ot": 1.0,
+   "total": 1192,
+   "us": 0.0,
+   "ca": 0.0,
+   "de": 0.0,
+   "jp": 0.0,
+   "uk": 0.0,
+   "skus": 26,
+   "zero": 12
+  }
+ ],
+ "byMat": [
+  {
+   "材质": "14K金(GD)",
+   "amz": 1147,
+   "b": 764.0,
+   "ot": 41.0,
+   "total": 1952,
+   "us": 561.0,
+   "ca": 67.0,
+   "de": 98.0,
+   "jp": 249.0,
+   "uk": 172.0,
+   "skus": 42,
+   "zero": 7
+  },
+  {
+   "材质": "白金(SL)",
+   "amz": 1094,
+   "b": 1077.0,
+   "ot": 90.0,
+   "total": 2261,
+   "us": 480.0,
+   "ca": 104.0,
+   "de": 63.0,
+   "jp": 352.0,
+   "uk": 95.0,
+   "skus": 46,
+   "zero": 5
+  }
+ ],
+ "pareto": [
+  {
+   "sku": "KRKC-0336-MO-ER-SL-7.5mm",
+   "line": "耳钉-花瓣簇拥系列",
+   "batch": "P3",
+   "total": 406,
+   "amz": 0,
+   "b": 406,
+   "share": 9.64,
+   "cum": 9.6
+  },
+  {
+   "sku": "KRKC-0337-MO-ER-GD-5mm",
+   "line": "耳坠-Leverback②",
+   "batch": "P2",
+   "total": 295,
+   "amz": 260,
+   "b": 25,
+   "share": 7.0,
+   "cum": 16.6
+  },
+  {
+   "sku": "KRKC-0337-MO-ER-GD-6.5mm",
+   "line": "耳坠-Leverback②",
+   "batch": "P2",
+   "total": 218,
+   "amz": 88,
+   "b": 127,
+   "share": 5.17,
+   "cum": 21.8
+  },
+  {
+   "sku": "KRKC-0336-MO-ER-SL-6mm",
+   "line": "耳钉-花瓣簇拥系列",
+   "batch": "P3",
+   "total": 192,
+   "amz": 0,
+   "b": 192,
+   "share": 4.56,
+   "cum": 26.4
+  },
+  {
+   "sku": "KRKC-0336-MO-ER-GD-7.5mm",
+   "line": "耳钉-花瓣簇拥系列",
+   "batch": "P3",
+   "total": 186,
+   "amz": 0,
+   "b": 186,
+   "share": 4.41,
+   "cum": 30.8
+  },
+  {
+   "sku": "KRKC-0336-MO-ER-SL-9mm",
+   "line": "耳钉-花瓣簇拥系列",
+   "batch": "P3",
+   "total": 160,
+   "amz": 0,
+   "b": 160,
+   "share": 3.8,
+   "cum": 34.6
+  },
+  {
+   "sku": "KRKC-0337-MO-ER-SL-5mm",
+   "line": "耳坠-Leverback②",
+   "batch": "P2",
+   "total": 146,
+   "amz": 108,
+   "b": 30,
+   "share": 3.47,
+   "cum": 38.0
+  },
+  {
+   "sku": "KRKC-0340-MO-ER-SL-11mm",
+   "line": "耳圈-排钻系列",
+   "batch": "P1",
+   "total": 138,
+   "amz": 109,
+   "b": 24,
+   "share": 3.28,
+   "cum": 41.3
+  },
+  {
+   "sku": "KRKC-0337-MO-ER-SL-6.5mm",
+   "line": "耳坠-Leverback②",
+   "batch": "P2",
+   "total": 125,
+   "amz": 86,
+   "b": 31,
+   "share": 2.97,
+   "cum": 44.3
+  },
+  {
+   "sku": "KRKC-0340-MO-ER-SL-13mm",
+   "line": "耳圈-排钻系列",
+   "batch": "P1",
+   "total": 112,
+   "amz": 101,
+   "b": 6,
+   "share": 2.66,
+   "cum": 46.9
+  },
+  {
+   "sku": "KRKC-0340-MO-ER-GD-11mm",
+   "line": "耳圈-排钻系列",
+   "batch": "P1",
+   "total": 93,
+   "amz": 75,
+   "b": 15,
+   "share": 2.21,
+   "cum": 49.2
+  },
+  {
+   "sku": "KRKC-0340-MO-ER-GD-13mm",
+   "line": "耳圈-排钻系列",
+   "batch": "P1",
+   "total": 85,
+   "amz": 77,
+   "b": 5,
+   "share": 2.02,
+   "cum": 51.2
+  },
+  {
+   "sku": "KRKC-0340-MO-ER-SL-15mm",
+   "line": "耳圈-排钻系列",
+   "batch": "P1",
+   "total": 82,
+   "amz": 79,
+   "b": 0,
+   "share": 1.95,
+   "cum": 53.1
+  },
+  {
+   "sku": "KRKC-0343-MO-ER-GD",
+   "line": "耳圈-主石系列",
+   "batch": "P1",
+   "total": 78,
+   "amz": 25,
+   "b": 53,
+   "share": 1.85,
+   "cum": 55.0
+  },
+  {
+   "sku": "KRKC-0336-MO-ER-GD-9mm",
+   "line": "耳钉-花瓣簇拥系列",
+   "batch": "P3",
+   "total": 76,
+   "amz": 0,
+   "b": 76,
+   "share": 1.8,
+   "cum": 56.8
+  },
+  {
+   "sku": "KRKC-0340-MO-ER-SL-14mm",
+   "line": "耳圈-排钻系列",
+   "batch": "P1",
+   "total": 72,
+   "amz": 69,
+   "b": 0,
+   "share": 1.71,
+   "cum": 58.5
+  },
+  {
+   "sku": "KRKC-0343-MO-ER-SL",
+   "line": "耳圈-主石系列",
+   "batch": "P1",
+   "total": 72,
+   "amz": 36,
+   "b": 28,
+   "share": 1.71,
+   "cum": 60.2
+  },
+  {
+   "sku": "KRKC-0340-MO-ER-GD-15mm",
+   "line": "耳圈-排钻系列",
+   "batch": "P1",
+   "total": 70,
+   "amz": 68,
+   "b": 0,
+   "share": 1.66,
+   "cum": 61.9
+  },
+  {
+   "sku": "KRKC-0338-MO-ER-GD-5.5mm",
+   "line": "耳坠-Leverback②",
+   "batch": "P2",
+   "total": 69,
+   "amz": 52,
+   "b": 17,
+   "share": 1.64,
+   "cum": 63.5
+  },
+  {
+   "sku": "KRKC-0336-MO-ER-GD-6mm",
+   "line": "耳钉-花瓣簇拥系列",
+   "batch": "P3",
+   "total": 69,
+   "amz": 0,
+   "b": 69,
+   "share": 1.64,
+   "cum": 65.1
+  }
+ ],
+ "kpiSku": {
+  "totalSku": 88,
+  "zeroSku": 12,
+  "top10Share": 46.9,
+  "top20Share": 65.1
+ },
+ "bTop": [
+  {
+   "sku": "KRKC-0336-MO-ER-SL-7.5mm",
+   "line": "耳钉-花瓣簇拥系列",
+   "batch": "P3",
+   "b": 406,
+   "amz": 0
+  },
+  {
+   "sku": "KRKC-0336-MO-ER-SL-6mm",
+   "line": "耳钉-花瓣簇拥系列",
+   "batch": "P3",
+   "b": 192,
+   "amz": 0
+  },
+  {
+   "sku": "KRKC-0336-MO-ER-GD-7.5mm",
+   "line": "耳钉-花瓣簇拥系列",
+   "batch": "P3",
+   "b": 186,
+   "amz": 0
+  },
+  {
+   "sku": "KRKC-0336-MO-ER-SL-9mm",
+   "line": "耳钉-花瓣簇拥系列",
+   "batch": "P3",
+   "b": 160,
+   "amz": 0
+  },
+  {
+   "sku": "KRKC-0337-MO-ER-GD-6.5mm",
+   "line": "耳坠-Leverback②",
+   "batch": "P2",
+   "b": 127,
+   "amz": 88
+  },
+  {
+   "sku": "KRKC-0336-MO-ER-GD-9mm",
+   "line": "耳钉-花瓣簇拥系列",
+   "batch": "P3",
+   "b": 76,
+   "amz": 0
+  },
+  {
+   "sku": "KRKC-0336-MO-ER-GD-6mm",
+   "line": "耳钉-花瓣簇拥系列",
+   "batch": "P3",
+   "b": 69,
+   "amz": 0
+  },
+  {
+   "sku": "KRKC-0343-MO-ER-GD",
+   "line": "耳圈-主石系列",
+   "batch": "P1",
+   "b": 53,
+   "amz": 25
+  },
+  {
+   "sku": "KRKC-0336-MO-ER-GD-10.5mm",
+   "line": "耳钉-花瓣簇拥系列",
+   "batch": "P3",
+   "b": 41,
+   "amz": 0
+  },
+  {
+   "sku": "KRKC-0336-MO-ER-SL-10.5mm",
+   "line": "耳钉-花瓣簇拥系列",
+   "batch": "P3",
+   "b": 38,
+   "amz": 0
+  },
+  {
+   "sku": "KRKC-0337-MO-ER-SL-6.5mm",
+   "line": "耳坠-Leverback②",
+   "batch": "P2",
+   "b": 31,
+   "amz": 86
+  },
+  {
+   "sku": "KRKC-0344-MO-ER-GD",
+   "line": "耳圈-主石系列",
+   "batch": "P1",
+   "b": 30,
+   "amz": 27
+  }
+ ],
+ "listEff": [
+  {
+   "三级品线": "耳圈-排钻系列",
+   "上线批次": "P1",
+   "skus": 8,
+   "styles": 1.0,
+   "total": 695,
+   "amz": 619,
+   "b": 50.0,
+   "perSku": 86.9
+  },
+  {
+   "三级品线": "耳圈-渐变主石系列",
+   "上线批次": "P1",
+   "skus": 6,
+   "styles": 1.0,
+   "total": 338,
+   "amz": 302,
+   "b": 34.0,
+   "perSku": 56.3
+  },
+  {
+   "三级品线": "耳坠-渐变系列",
+   "上线批次": "P1",
+   "skus": 6,
+   "styles": 3.0,
+   "total": 237,
+   "amz": 162,
+   "b": 75.0,
+   "perSku": 39.5
+  },
+  {
+   "三级品线": "耳圈-主石系列",
+   "上线批次": "P1",
+   "skus": 8,
+   "styles": 4.0,
+   "total": 412,
+   "amz": 200,
+   "b": 175.0,
+   "perSku": 51.5
+  },
+  {
+   "三级品线": "耳圈-双钻系列",
+   "上线批次": "P1",
+   "skus": 4,
+   "styles": 2.0,
+   "total": 227,
+   "amz": 183,
+   "b": 8.0,
+   "perSku": 56.8
+  },
+  {
+   "三级品线": "耳坠-流苏系列①",
+   "上线批次": "P2",
+   "skus": 4,
+   "styles": 2.0,
+   "total": 23,
+   "amz": 15,
+   "b": 8.0,
+   "perSku": 5.8
+  },
+  {
+   "三级品线": "耳坠-流苏系列②",
+   "上线批次": "P2",
+   "skus": 8,
+   "styles": 4.0,
+   "total": 36,
+   "amz": 25,
+   "b": 11.0,
+   "perSku": 4.5
+  },
+  {
+   "三级品线": "耳坠-Leverback①",
+   "上线批次": "P2",
+   "skus": 6,
+   "styles": 3.0,
+   "total": 57,
+   "amz": 31,
+   "b": 26.0,
+   "perSku": 9.5
+  },
+  {
+   "三级品线": "耳坠-Leverback②",
+   "上线批次": "P2",
+   "skus": 12,
+   "styles": 4.0,
+   "total": 996,
+   "amz": 704,
+   "b": 263.0,
+   "perSku": 83.0
+  },
+  {
+   "三级品线": "耳钉-花瓣簇拥系列",
+   "上线批次": "P3",
+   "skus": 8,
+   "styles": 4.0,
+   "total": 1168,
+   "amz": 0,
+   "b": 1168.0,
+   "perSku": 146.0
+  },
+  {
+   "三级品线": "耳钉-异型-公主方",
+   "上线批次": "P3",
+   "skus": 6,
+   "styles": 2.0,
+   "total": 0,
+   "amz": 0,
+   "b": 0.0,
+   "perSku": 0.0
+  },
+  {
+   "三级品线": "耳钉-异型-簇拥系列",
+   "上线批次": "P3",
+   "skus": 8,
+   "styles": 4.0,
+   "total": 2,
+   "amz": 0,
+   "b": 2.0,
+   "perSku": 0.2
+  },
+  {
+   "三级品线": "耳钉-异型-单钻系列",
+   "上线批次": "P3",
+   "skus": 4,
+   "styles": 4.0,
+   "total": 22,
+   "amz": 0,
+   "b": 21.0,
+   "perSku": 5.5
+  }
+ ],
+ "total": {
+  "amz": 2241,
+  "b": 1841,
+  "ot": 131,
+  "total": 4213
+ }
+};
+const fmt = n => n.toLocaleString('en-US');
+const C = {amz:'#f97316', b:'#14b8a6', ot:'#94a3b8', blue:'#3b82f6', green:'#16a34a', amber:'#f59e0b', red:'#ef4444', gray:'#cbd5e1', purple:'#8b5cf6'};
+const rateColor = r => r==null ? C.gray : (r>=100?C.green : r>=60?C.amber : C.red);
+const ratePill = r => { if(r==null) return '<span class="pill n">无目标</span>';
+  const c = r>=100?'g':(r>=60?'a':'r'); return `<span class="pill ${c}">${r}%</span>`; };
+
+/* ---------- Tabs ---------- */
+let inited = [false,false,false];
+function showTab(i, btn){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.page').forEach((p,k)=>p.classList.toggle('active',k===i));
+  if(!inited[i]){ inited[i]=true; renderTab(i); }
+  setTimeout(()=>{ charts.forEach(ch=>ch&&ch.resize()); },50);
+}
+
+/* ---------- Charts registry ---------- */
+const charts = [];
+function mk(id, opt){ const el=document.getElementById(id); if(!el) return null;
+  const c=echarts.init(el); c.setOption(opt); charts.push(c); return c; }
+const baseGrid = {left:8,right:24,top:28,bottom:8,containLabel:true};
+const axis = {axisLine:{lineStyle:{color:'#e2e8f0'}},axisLabel:{color:'#64748b',fontSize:11},splitLine:{lineStyle:{color:'#f1f5f9'}}};
+const legend = {top:0,textStyle:{color:'#64748b',fontSize:11},itemWidth:12,itemHeight:8};
+
+/* ---------- KPI ---------- */
+function kpiCard(label,val,cls,sub){return `<div class="kpi"><div class="k-label">${label}</div><div class="k-val ${cls||''}">${val}</div><div class="k-sub">${sub||''}</div></div>`;}
+
+function renderKPIs(){
+  const t=D.total, rate=(D.amzTotal.actual/D.amzTotal.target*100).toFixed(1);
+  document.getElementById('kpi1').innerHTML =
+    kpiCard('公司级总销量',fmt(t.total),'','13品线 · 88 SKU · 13 Listing')+
+    kpiCard('亚马逊销量',fmt(t.amz),'amz',`占比 ${(t.amz/t.total*100).toFixed(1)}%`)+
+    kpiCard('B端销量',fmt(t.b),'b2b',`占比 ${(t.b/t.total*100).toFixed(1)}%`)+
+    kpiCard('其他平台销量',fmt(t.ot),'','乐天/Coupang等，占3.1%')+
+    kpiCard('零动销SKU',D.kpiSku.zeroSku,'bad','全部为P3耳钉异型系列')+
+    kpiCard('Top10 SKU集中度',D.kpiSku.top10Share+'%','warn',`Top20 占 ${D.kpiSku.top20Share}%`);
+  document.getElementById('kpi2').innerHTML =
+    kpiCard('亚马逊实际销量',fmt(D.amzTotal.actual),'amz','同期新品期累计')+
+    kpiCard('新品期目标(AH列)',fmt(D.amzTotal.target),'',`目标销售额 ¥${fmt(Math.round(D.amzTotal.targetSales))}`)+
+    kpiCard('总体完成率',rate+'%','bad',`缺口 ${fmt(D.amzTotal.actual-D.amzTotal.target)} 件`)+
+    kpiCard('最佳品线','Leverback②','good','达成 171.5%（704/410）')+
+    kpiCard('最差站点完成率','CA 18.6%','bad','月销口径 · 缺口750件')+
+    kpiCard('零动销品线','3 条','bad','P3耳钉全线 0 动销');
+  const bT=D.lines.reduce((s,l)=>s+l.b,0);
+  const huab=D.lines.find(l=>l['三级品线']==='耳钉-花瓣簇拥系列');
+  document.getElementById('kpi3').innerHTML =
+    kpiCard('B端总销量',fmt(bT),'b2b',`公司级占比 ${(bT/D.total.total*100).toFixed(1)}%`)+
+    kpiCard('品线集中度Top1','63.4%','warn',`花瓣簇拥 ${fmt(huab.b)} 件`)+
+    kpiCard('B端SKU动销数',`${D.kpiSku.totalSku-D.kpiSku.zeroSku-2}/${D.kpiSku.totalSku}`,'',`含微量动销(<5件)若干`)+
+    kpiCard('白金(SL)占比','58.5%','',`亚马逊为 48.8%`)+
+    kpiCard('B端最强单SKU','406 件','','KRKC-0336-MO-ER-SL-7.5mm')+
+    kpiCard('与亚马逊比值','0.82','',`B端1841 / 亚马逊2241`);
+}
+
+/* ---------- Tab1 ---------- */
+function renderTab0(){
+  const L=[...D.lines].sort((a,b)=>b.total-a.total);
+  const names=L.map(l=>l['三级品线']);
+  mk('a_lines',{legend:legend,grid:{...baseGrid,top:34},
+    xAxis:{type:'value',...axis},
+    yAxis:{type:'category',data:names,axisLabel:{color:'#334155',fontSize:11.5}},
+    series:[
+      {name:'亚马逊',type:'bar',stack:'s',data:L.map(l=>l.amz),itemStyle:{color:C.amz}},
+      {name:'B端',type:'bar',stack:'s',data:L.map(l=>l.b),itemStyle:{color:C.b}},
+      {name:'其他平台',type:'bar',stack:'s',data:L.map(l=>l.ot),itemStyle:{color:C.ot},
+       label:{show:true,position:'right',fontSize:11,color:'#64748b',formatter:p=>fmt(L[p.dataIndex].total)}}]});
+  mk('a_chan',{tooltip:{trigger:'item',formatter:'{b}: {c}件 ({d}%)'},
+    series:[{type:'pie',radius:['42%','68%'],center:['50%','52%'],
+      data:[{name:'亚马逊',value:D.total.amz,itemStyle:{color:C.amz}},
+            {name:'B端',value:D.total.b,itemStyle:{color:C.b}},
+            {name:'其他平台',value:D.total.ot,itemStyle:{color:C.ot}}],
+      label:{color:'#475569',fontSize:12,formatter:'{b}\n{c}件 · {d}%'},
+      emphasis:{scale:true}}]});
+  mk('a_batch',{tooltip:{trigger:'item',formatter:'{b}: {c}件 ({d}%)'},
+    series:[{type:'pie',radius:['42%','68%'],center:['50%','52%'],
+      data:D.byBatch.map((r,i)=>({name:r['上线批次'],value:r.total,
+        itemStyle:{color:[C.blue,C.purple,C.amber][i]}})),
+      label:{color:'#475569',fontSize:12,formatter:'{b}\n{c}件 · {d}%'}}]});
+  mk('a_cat',{tooltip:{trigger:'item',formatter:'{b}: {c}件 ({d}%)'},
+    series:[{type:'pie',radius:['42%','68%'],center:['50%','52%'],
+      data:D.byCat.map((r,i)=>({name:r['结构'],value:r.total,itemStyle:{color:[C.blue,C.teal,C.amber][i]}})),
+      label:{color:'#475569',fontSize:12,formatter:'{b}\n{c}件 · {d}%'}}]});
+  mk('a_mat',{tooltip:{trigger:'item',formatter:'{b}: {c}件 ({d}%)'},
+    series:[{type:'pie',radius:['42%','68%'],center:['50%','52%'],
+      data:D.byMat.map((r,i)=>({name:r['材质'],value:r.total,itemStyle:{color:[C.amber,C.gray][i]}})),
+      label:{color:'#475569',fontSize:12,formatter:'{b}\n{c}件 · {d}%'}}]});
+  mk('a_batchChan',{legend:legend,grid:baseGrid,
+    xAxis:{type:'category',data:D.byBatch.map(r=>r['上线批次']),...axis},
+    yAxis:{type:'value',...axis},
+    series:[
+      {name:'亚马逊',type:'bar',stack:'s',data:D.byBatch.map(r=>r.amz),itemStyle:{color:C.amz}},
+      {name:'B端',type:'bar',stack:'s',data:D.byBatch.map(r=>r.b),itemStyle:{color:C.b}},
+      {name:'其他平台',type:'bar',stack:'s',data:D.byBatch.map(r=>r.ot),itemStyle:{color:C.ot}}]});
+  const cats=['耳圈','耳坠','耳钉'],colors=[C.blue,C.teal,C.amber];
+  mk('a_site',{legend:legend,grid:baseGrid,
+    xAxis:{type:'category',data:['US','JP','UK','CA','DE'],...axis},
+    yAxis:{type:'value',...axis},
+    series:cats.map((c,i)=>({name:c,type:'bar',stack:'s',barWidth:34,itemStyle:{color:colors[i]},
+      data:['US','JP','UK','CA','DE'].map(s=>D.byCat.find(r=>r['结构']===c)[s.toLowerCase()])}))});
+  const P=D.pareto;
+  mk('a_pareto',{legend:legend,grid:{...baseGrid,bottom:60},
+    xAxis:{type:'category',data:P.map(p=>p.sku.replace('KRKC-','')),axisLabel:{color:'#64748b',fontSize:9.5,rotate:45}},
+    yAxis:[{type:'value',name:'销量',...axis},{type:'value',name:'累计%',max:100,...axis,axisLabel:{formatter:'{value}%'}}],
+    series:[
+      {name:'SKU销量',type:'bar',data:P.map(p=>p.total),itemStyle:{color:C.blue},barMaxWidth:22},
+      {name:'累计占比',type:'line',yAxisIndex:1,data:P.map(p=>p.cum),itemStyle:{color:C.amber},lineStyle:{width:2},symbol:'circle',symbolSize:6}]});
+  const E=[...D.listEff].sort((a,b)=>b.perSku-a.perSku);
+  mk('a_eff',{grid:{...baseGrid,top:16},
+    xAxis:{type:'value',...axis},
+    yAxis:{type:'category',data:E.map(e=>e['三级品线']),axisLabel:{color:'#334155',fontSize:11}},
+    series:[{type:'bar',data:E.map(e=>e.perSku),barMaxWidth:16,
+      itemStyle:{color:p=>p.value>=100?C.green:p.value>=60?C.blue:C.amber},
+      label:{show:true,position:'right',fontSize:10.5,color:'#64748b'}}]});
+  // table
+  let h='<thead><tr><th>品线</th><th>批次</th><th>Listing</th><th class="num">SKU数</th><th class="num">亚马逊</th><th class="num">B端</th><th class="num">其他</th><th class="num">公司级</th><th class="num">US</th><th class="num">CA</th><th class="num">DE</th><th class="num">JP</th><th class="num">UK</th></tr></thead><tbody>';
+  D.lines.forEach(l=>{h+=`<tr><td>${l['三级品线']}</td><td>${l['上线批次']}</td><td>${l['Listing编码']}</td><td class="num">${l.skus}</td><td class="num">${fmt(l.amz)}</td><td class="num">${fmt(l.b)}</td><td class="num">${fmt(l.ot)}</td><td class="num"><b>${fmt(l.total)}</b></td><td class="num">${fmt(l.us)}</td><td class="num">${fmt(l.ca)}</td><td class="num">${fmt(l.de)}</td><td class="num">${fmt(l.jp)}</td><td class="num">${fmt(l.uk)}</td></tr>`;});
+  h+='</tbody>'; document.getElementById('t_lines').innerHTML=h;
+}
+
+/* ---------- Tab2 ---------- */
+function renderTab1(){
+  const comps=[...D.amzComp].sort((a,b)=>(b.targetNew||0)-(a.targetNew||0));
+  mk('b_lines',{legend:legend,grid:{...baseGrid,top:34},
+    xAxis:{type:'value',...axis},
+    yAxis:{type:'category',data:comps.map(c=>c.series),axisLabel:{color:'#334155',fontSize:11}},
+    series:[
+      {name:'目标新品期',type:'bar',data:comps.map(c=>c.targetNew||0),itemStyle:{color:'#cbd5e1'},barGap:'-100%',zIndex:1},
+      {name:'实际销量',type:'bar',data:comps.map(c=>c.actual),barMaxWidth:14,zIndex:2,
+       itemStyle:{color:p=>rateColor(comps[p.dataIndex].rate)},
+       label:{show:true,position:'right',fontSize:10.5,formatter:p=>{const c=comps[p.dataIndex];return c.rate==null?`${c.actual}(无目标)`:`${c.actual}件 · ${c.rate}%`;},color:'#475569'}}]});
+  // 站点完成率 —— 仅P1批次（口径：月销目标行数值直接加总）
+  const siteStat = (lineFilter) => ['US','CA','DE','JP','UK'].map(s=>{
+    const ts=D.targets.filter(x=>!lineFilter||lineFilter.includes(x.series));
+    const t=ts.reduce((a,x)=>a+(x.ms[s]||0),0);
+    const ls=lineFilter?D.lines.filter(l=>lineFilter.includes(l['三级品线'])):D.lines;
+    const a=ls.reduce((x,l)=>x+l[s.toLowerCase()],0);
+    return {site:s,target:t,actual:a,rate:+(a/t*100).toFixed(1),gap:a-t};
+  });
+  const p1Lines=D.lines.filter(l=>l['上线批次']==='P1');
+  const p1Series=p1Lines.map(l=>l['三级品线']);
+  const p1S=siteStat(p1Series);
+  mk('b_sites',{legend:legend,grid:baseGrid,
+    xAxis:{type:'category',data:p1S.map(s=>s.site),...axis},
+    yAxis:{type:'value',...axis},
+    series:[
+      {name:'P1目标',type:'bar',data:p1S.map(s=>s.target),itemStyle:{color:'#cbd5e1'},barMaxWidth:26},
+      {name:'P1实际',type:'bar',data:p1S.map(s=>s.actual),barMaxWidth:26,zIndex:2,
+       itemStyle:{color:p=>rateColor(p1S[p.dataIndex].rate),borderRadius:[5,5,0,0]},
+       label:{show:true,position:'top',fontSize:10.5,color:'#475569',
+         formatter:p=>{const s=p1S[p.dataIndex];return `${s.actual}件 · ${s.rate}%`;}}}]})
+  const allS=siteStat(null);
+  mk('b_siteComp',{legend:legend,grid:baseGrid,
+    xAxis:{type:'category',data:allS.map(s=>s.site),...axis},
+    yAxis:{type:'value',...axis},
+    series:[
+      {name:'目标(月销口径)',type:'bar',data:allS.map(s=>s.target),itemStyle:{color:'#cbd5e1'},barMaxWidth:26},
+      {name:'实际',type:'bar',data:allS.map(s=>s.actual),barMaxWidth:26,
+       itemStyle:{color:p=>rateColor(allS[p.dataIndex].rate)},
+       label:{show:true,position:'top',fontSize:10,formatter:p=>{const s=allS[p.dataIndex];return s.gap>=0?`+${s.gap}`:s.gap;},color:'#64748b'}}]});
+  // cohort
+  const cohort=[{n:'P1批次(8月上线)',t:3342.6,a:1466},{n:'P2批次(9月上线)',t:1782,a:775},{n:'P3批次(10月上线)',t:1274.4,a:0}];
+  mk('b_cohort',{legend:legend,grid:baseGrid,
+    xAxis:{type:'category',data:cohort.map(c=>c.n),...axis,axisLabel:{fontSize:11}},
+    yAxis:{type:'value',...axis},
+    series:[
+      {name:'目标',type:'bar',data:cohort.map(c=>c.t),itemStyle:{color:'#cbd5e1'},barMaxWidth:26},
+      {name:'实际',type:'bar',data:cohort.map(c=>c.a),barMaxWidth:26,
+       itemStyle:{color:p=>rateColor(cohort[p.dataIndex].a/cohort[p.dataIndex].t*100)},
+       label:{show:true,position:'top',fontSize:11,formatter:p=>{const c=cohort[p.dataIndex];return `${c.a}件 · ${(c.a/c.t*100).toFixed(1)}%`;},color:'#475569'}}]});
+  // mix
+  const tSum=allS.reduce((s,x)=>s+x.target,0), aSum=allS.reduce((s,x)=>s+x.actual,0);
+  mk('b_mix',{legend:legend,grid:{...baseGrid,bottom:4},
+    xAxis:{type:'value',max:100,...axis,axisLabel:{formatter:'{value}%'}},
+    yAxis:{type:'category',data:['目标结构','实际结构'],...axis},
+    series:allS.map(s=>({name:s.site,type:'bar',stack:'p',barWidth:26,
+      data:[s.target/tSum*100,s.actual/aSum*100].map(v=>+v.toFixed(1)),
+      itemStyle:{color:{US:C.blue,CA:C.purple,DE:C.amber,JP:C.teal,UK:C.amz}[s.site]},
+      label:{show:true,fontSize:10,formatter:'{c}%'}}))});
+  // heat
+  const H=D.lines, sites=['us','ca','de','jp','uk'], sNames=['US','CA','DE','JP','UK'];
+  const maxV=Math.max(...H.flatMap(l=>sites.map(s=>l[s])));
+  mk('b_heat',{grid:{left:8,right:16,top:14,bottom:8,containLabel:true},
+    tooltip:{formatter:p=>`${H[p.dataIndex[1]]['三级品线']} · ${sNames[p.dataIndex[0]]}：${p.value}件`},
+    xAxis:{type:'category',data:sNames,...axis,splitLine:{show:false}},
+    yAxis:{type:'category',data:H.map(l=>l['三级品线']),axisLabel:{color:'#334155',fontSize:11},splitLine:{show:false}},
+    visualMap:{min:0,max:maxV,calculable:false,orient:'horizontal',left:'center',bottom:0,itemWidth:12,itemHeight:60,textStyle:{color:'#64748b',fontSize:10},
+      inRange:{color:['#fef2f2','#fca5a5','#ef4444','#b91c1c']}},
+    series:[{type:'heatmap',data:H.flatMap((l,y)=>sites.map((s,x)=>[x,y,l[s]])),
+      label:{show:true,fontSize:9.5,color:'#fff',formatter:p=>p.value>0?p.value:''},
+      itemStyle:{borderColor:'#fff',borderWidth:2,borderRadius:3}}]});
+  // table
+  let h='<thead><tr><th>品线</th><th>价位段($)</th><th>上线时间</th><th class="num">新品期月</th><th class="num">目标新品期</th><th class="num">实际</th><th>完成率</th><th class="num">缺口</th><th class="num">月目标 US/CA/DE/JP/UK</th></tr></thead><tbody>';
+  D.amzComp.forEach(c=>{const m=c.monthly||{};
+    h+=`<tr><td>${c.series}</td><td>${c.band}</td><td>${c.launch||'-'}</td><td class="num">${c.newMonths??'-'}</td><td class="num">${c.targetNew?fmt(c.targetNew):'-'}</td><td class="num"><b>${fmt(c.actual)}</b></td><td>${ratePill(c.rate)}</td><td class="num" style="color:${c.gap<0?'#ef4444':'#16a34a'}">${c.targetNew?(c.gap>0?'+':'')+fmt(c.gap):'-'}</td><td class="num" style="font-size:11px">${['US','CA','DE','JP','UK'].map(s=>m[s]??'-').join(' / ')}</td></tr>`;});
+  h+='<tfoot><tr><td colspan="4"><b>合计</b></td><td class="num"><b>6,399</b></td><td class="num"><b>2,241</b></td><td><span class="pill r">35.0%</span></td><td class="num" style="color:#ef4444"><b>-4,158</b></td><td></td></tr></tfoot>';
+  h+='</tbody>'; document.getElementById('t_amz').innerHTML=h;
+}
+
+/* ---------- Tab3 ---------- */
+function renderTab2(){
+  const L=[...D.lines].sort((a,b)=>b.b-a.b);
+  mk('c_lines',{grid:{...baseGrid,top:16},
+    xAxis:{type:'value',...axis},
+    yAxis:{type:'category',data:L.map(l=>l['三级品线']),axisLabel:{color:'#334155',fontSize:11}},
+    series:[{type:'bar',data:L.map(l=>l.b),barMaxWidth:16,
+      itemStyle:{color:p=>p.value>=500?C.b:p.value>=50?C.teal:'#a7d8d0'},
+      label:{show:true,position:'right',fontSize:10.5,color:'#64748b'}}]});
+  mk('c_batch',{tooltip:{trigger:'item',formatter:'{b}: {c}件 ({d}%)'},
+    series:[{type:'pie',radius:['40%','66%'],center:['50%','50%'],
+      data:D.byBatch.map((r,i)=>({name:r['上线批次'],value:r.b,itemStyle:{color:[C.blue,C.purple,C.amber][i]}})),
+      label:{fontSize:11,formatter:'{b}\n{c}件 · {d}%',color:'#475569'}}]});
+  mk('c_cat',{tooltip:{trigger:'item',formatter:'{b}: {c}件 ({d}%)'},
+    series:[{type:'pie',radius:['40%','66%'],center:['50%','50%'],
+      data:D.byCat.map((r,i)=>({name:r['结构'],value:r.b,itemStyle:{color:[C.blue,C.teal,C.amber][i]}})),
+      label:{fontSize:11,formatter:'{b}\n{c}件 · {d}%',color:'#475569'}}]});
+  mk('c_chan',{legend:legend,grid:{...baseGrid,top:34},
+    xAxis:{type:'value',...axis},
+    yAxis:{type:'category',data:L.map(l=>l['三级品线']),axisLabel:{color:'#334155',fontSize:11}},
+    series:[
+      {name:'B端',type:'bar',data:L.map(l=>l.b),itemStyle:{color:C.b},barMaxWidth:12},
+      {name:'亚马逊',type:'bar',data:L.map(l=>l.amz),itemStyle:{color:C.amz},barMaxWidth:12}]});
+  mk('c_mat',{tooltip:{trigger:'item',formatter:'{b}: {c}件 ({d}%)'},
+    series:[{type:'pie',radius:['40%','66%'],center:['50%','50%'],
+      data:D.byMat.map((r,i)=>({name:r['材质'],value:r.b,itemStyle:{color:[C.amber,C.gray][i]}})),
+      label:{fontSize:11,formatter:'{b}\n{c}件 · {d}%',color:'#475569'}}]});
+  let h='<thead><tr><th>#</th><th>SKU</th><th>品线</th><th>批次</th><th class="num">B端销量</th><th class="num">亚马逊销量</th></tr></thead><tbody>';
+  D.bTop.forEach((r,i)=>{h+=`<tr><td>${i+1}</td><td style="font-family:monospace;font-size:11.5px">${r.sku}</td><td>${r.line}</td><td>${r.batch}</td><td class="num"><b>${fmt(r.b)}</b></td><td class="num">${fmt(r.amz)}</td></tr>`;});
+  h+='</tbody>'; document.getElementById('t_btop').innerHTML=h;
+  let h2='<thead><tr><th>品线</th><th>批次</th><th class="num">SKU数</th><th class="num">B端</th><th class="num">B端占比*</th><th class="num">亚马逊</th><th class="num">单SKU效率(B端)</th><th>渠道倾向</th></tr></thead><tbody>';
+  const B=[...D.lines].sort((a,b)=>b.b-a.b);
+  B.forEach(l=>{const skew=l.b-l.amz;
+    h2+=`<tr><td>${l['三级品线']}</td><td>${l['上线批次']}</td><td class="num">${l.skus}</td><td class="num"><b>${fmt(l.b)}</b></td><td class="num">${(l.b/Math.max(l.total,1)*100).toFixed(0)}%</td><td class="num">${fmt(l.amz)}</td><td class="num">${(l.b/l.skus).toFixed(1)}</td><td>${skew>50?'<span class="pill n">B端依赖</span>':skew<-50?'<span class="pill a">亚马逊依赖</span>':'<span class="pill n">均衡</span>'}</td></tr>`;});
+  h2+='</tbody><tfoot><tr><td colspan="3"><b>合计</b></td><td class="num"><b>1,841</b></td><td class="num">43.7%</td><td class="num"><b>2,241</b></td><td class="num">20.9</td><td></td></tr></tfoot>';
+  document.getElementById('t_b').innerHTML=h2;
+}
+
+const renderers=[renderTab0,renderTab1,renderTab2];
+function renderTab(i){ renderers[i](); }
+renderKPIs();
+inited[0]=true; renderTab0();
+window.addEventListener('resize',()=>charts.forEach(ch=>ch&&ch.resize()));
+</script>
+</body>
+</html>
